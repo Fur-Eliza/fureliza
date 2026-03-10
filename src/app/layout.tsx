@@ -16,6 +16,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fureliza.com"),
   title: "Fur Eliza | Luxury Niche Perfumery",
   description: "Feel the fragrance before you wear it. Curated niche perfumes presented through immersive sensory experiences. Lux Intra.",
   keywords: ["niche perfume", "luxury fragrance", "perfumeria nicho", "Fur Eliza", "curated perfumes"],
