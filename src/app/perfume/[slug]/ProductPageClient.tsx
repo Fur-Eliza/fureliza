@@ -4,6 +4,10 @@ import { Product } from "@/types/product";
 import { useCartStore } from "@/store/cartStore";
 import HeroScroll from "@/components/HeroScroll";
 import AnimatedSection from "@/components/AnimatedSection";
+import FragranceMeter from "@/components/FragranceMeter";
+import RelatedProducts from "@/components/RelatedProducts";
+import StickyAddToCart from "@/components/StickyAddToCart";
+import ProductJsonLd from "@/components/ProductJsonLd";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
@@ -22,6 +26,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
 
   return (
     <>
+      <ProductJsonLd product={product} />
       <Navbar />
       <CartDrawer />
       <Toast />
@@ -55,7 +60,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
               {(["top", "heart", "base"] as const).map((level) => (
                 <div key={level}>
                   <h3 className="text-xs font-semibold tracking-widest uppercase text-[var(--color-gold)]/40 mb-2">
-                    {level === "top" ? "Top" : level === "heart" ? "Heart" : "Base"}
+                    {level === "top" ? "Notas de Salida" : level === "heart" ? "Notas de Corazon" : "Notas de Fondo"}
                   </h3>
                   <ul className="space-y-1">
                     {product.notes[level].map((note) => (
@@ -67,8 +72,19 @@ export default function ProductPageClient({ product }: { product: Product }) {
             </div>
           </AnimatedSection>
 
-          {/* Tags */}
+          {/* Fragrance meter */}
           <AnimatedSection animation="fade-up" delay={0.35}>
+            <div className="mb-10">
+              <FragranceMeter
+                intensity={product.fragrance.intensity}
+                projection={product.fragrance.projection}
+                longevity={product.fragrance.longevity}
+              />
+            </div>
+          </AnimatedSection>
+
+          {/* Tags */}
+          <AnimatedSection animation="fade-up" delay={0.4}>
             <div className="flex flex-wrap gap-2 mb-10">
               {product.emotionalTags.map((tag) => (
                 <span key={tag} className="px-3 py-1 text-xs rounded-full border border-[var(--color-gold)]/20 text-[var(--color-gold)]/60 capitalize">
@@ -79,13 +95,18 @@ export default function ProductPageClient({ product }: { product: Product }) {
           </AnimatedSection>
 
           {/* Price & buy */}
-          <AnimatedSection animation="fade-up" delay={0.4}>
+          <AnimatedSection animation="fade-up" delay={0.45}>
             <div className="flex items-center gap-6">
               <p className="text-3xl font-bold text-[var(--color-gold)]">
                 {formatPrice(product.price.cop, product.price.usd)}
               </p>
-              <span className="text-sm text-[var(--color-ink-soft)]">{product.size} — {product.type === "full" ? "Full bottle" : "Decant"}</span>
+              <span className="text-sm text-[var(--color-ink-soft)]">
+                {product.size} — {product.type === "full" ? "Frasco completo" : "Decant"}
+              </span>
             </div>
+            <p className="mt-2 text-xs text-[var(--color-ink-soft)]">
+              Envio a todo Colombia. Costo de envio calculado al finalizar la compra via WhatsApp.
+            </p>
             <button
               onClick={handleAdd}
               className={`mt-6 px-8 py-4 font-semibold rounded-xl transition-all duration-300 active:scale-95 ${
@@ -94,13 +115,22 @@ export default function ProductPageClient({ product }: { product: Product }) {
                   : "bg-[var(--color-gold)]/10 text-[var(--color-gold)] border border-[var(--color-gold)]/30 hover:bg-[var(--color-gold)] hover:text-[var(--color-bg)]"
               }`}
             >
-              {added ? "Added to cart" : "Add to cart"}
+              {added ? "Agregado al carrito" : "Agregar al carrito"}
             </button>
           </AnimatedSection>
         </section>
+
+        {/* Related fragrances */}
+        <RelatedProducts
+          currentSlug={product.slug}
+          relatedSlugs={product.related}
+          family={product.family}
+          mood={product.mood}
+        />
       </main>
 
       <Footer />
+      <StickyAddToCart product={product} />
     </>
   );
 }
