@@ -7,6 +7,7 @@
   --color-gold: #C5A028;
   --color-gold-light: #E8D48B;
   --color-gold-dark: #8B6914;
+  --color-gold-pale: #D4B84A;
   --color-ink: #F5F5F5;
   --color-ink-soft: #9CA3AF;
   --color-border: #2A2A2A;
@@ -46,6 +47,39 @@ body::after {
 .text-gold-emboss {
   color: var(--color-gold);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8), 0 -1px 0 rgba(232, 212, 139, 0.3);
+}
+
+/* Skip navigation link */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-gold);
+  color: var(--color-bg);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0 0 0.75rem 0.75rem;
+  transition: top 0.2s ease;
+}
+.skip-nav:focus {
+  top: 0;
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 2px;
+}
+
+/* Focus visible rings */
+*:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
 }
 
 ::-webkit-scrollbar { width: 6px; }
