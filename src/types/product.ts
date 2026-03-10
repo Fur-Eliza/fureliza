@@ -35,6 +35,14 @@ export interface ProductGenerated {
   mood: Mood[];
   emotionalTags: string[];
   description: string;
+  fragrance: {
+    intensity: number;
+    projection: number;
+    longevity: number;
+  };
+  occasions: string[];
+  season: string[];
+  related: string[];
 }
 
 export interface ProductAssets {

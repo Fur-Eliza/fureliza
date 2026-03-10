@@ -18,6 +18,14 @@ export const products: Product[] = [
     emotionalTags: ["powerful", "dark", "salty", "abyssal", "industrial", "bold"],
     description:
       "An abyss of salt that awakens beneath your skin. Megamare is not a perfume — it is a declaration of primitive force, a storm trapped in glass.",
+    fragrance: {
+      intensity: 9,
+      projection: 8,
+      longevity: 9,
+    },
+    occasions: ["evening", "formal", "statement"],
+    season: ["fall", "winter"],
+    related: ["baccarat-rouge-540"],
     frames: {
       directory: "/frames/megamare",
       count: 120,
@@ -45,6 +53,14 @@ export const products: Product[] = [
     emotionalTags: ["luminous", "warm", "crystalline", "magnetic", "iconic", "radiant"],
     description:
       "Light made liquid. Baccarat Rouge 540 wraps you in a golden halo of warmth — saffron, jasmine, and ambergris fused into pure magnetism.",
+    fragrance: {
+      intensity: 8,
+      projection: 9,
+      longevity: 10,
+    },
+    occasions: ["evening", "date-night", "formal"],
+    season: ["fall", "winter", "spring"],
+    related: ["megamare"],
     frames: {
       directory: "/frames/baccarat-rouge-540",
       count: 120,
