@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { safeJsonLd } from "@/lib/constants";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Fur Eliza",
   },
   description:
-    "Siente la fragancia antes de usarla. Perfumes nicho curados a traves de experiencias sensoriales inmersivas. Lux Intra.",
+    "Siente la fragancia antes de usarla. Perfumes nicho curados a través de experiencias sensoriales inmersivas. Lux Intra.",
   keywords: [
     "perfume nicho",
     "perfumeria de lujo",
@@ -52,12 +53,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
       <body className="font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: safeJsonLd({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Fur Eliza",
+              url: "https://fureliza.com",
+              description:
+                "Perfumería nicho de lujo en Colombia. Fragancias curadas a través de experiencias sensoriales inmersivas.",
+              sameAs: [],
+            }),
+          }}
+        />
         <a href="#main-content" className="skip-nav">
           Saltar al contenido principal
         </a>
-        <div id="main-content">
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   );

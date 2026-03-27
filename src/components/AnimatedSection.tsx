@@ -32,25 +32,30 @@ export default function AnimatedSection({
 
   useEffect(() => {
     async function init() {
-      const { gsap } = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      gsap.registerPlugin(ScrollTrigger);
-      if (!ref.current) return;
+      try {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
+        if (!ref.current) return;
 
-      const anim = animations[animation];
-      gsap.fromTo(ref.current, anim.from, {
-        ...anim.to,
-        duration,
-        delay,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
-      });
+        const anim = animations[animation];
+        gsap.fromTo(ref.current, anim.from, {
+          ...anim.to,
+          duration,
+          delay,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
+        });
+      } catch {
+        // GSAP failed — make content visible
+        if (ref.current) ref.current.style.opacity = "1";
+      }
     }
     init();
   }, [animation, delay, duration]);
 
   return (
-    <div ref={ref} className={className} style={{ opacity: 0 }}>
+    <div ref={ref} className={`gsap-animated ${className}`} style={{ opacity: 0 }}>
       {children}
     </div>
   );

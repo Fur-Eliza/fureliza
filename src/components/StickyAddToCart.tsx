@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Product } from "@/types/product";
+import { Product, ProductVariant } from "@/types/product";
 import { useCartStore } from "@/store/cartStore";
 
 interface Props {
   product: Product;
+  selectedVariant: ProductVariant;
 }
 
-export default function StickyAddToCart({ product }: Props) {
+export default function StickyAddToCart({ product, selectedVariant }: Props) {
   const { addItem, formatPrice } = useCartStore();
   const [visible, setVisible] = useState(false);
   const [added, setAdded] = useState(false);
@@ -23,7 +24,7 @@ export default function StickyAddToCart({ product }: Props) {
   }, []);
 
   const handleAdd = () => {
-    addItem(product);
+    addItem(product, selectedVariant.id);
     setAdded(true);
     setTimeout(() => setAdded(false), 1200);
   };
@@ -47,9 +48,17 @@ export default function StickyAddToCart({ product }: Props) {
           <p className="text-sm font-bold text-[var(--color-ink)] truncate">
             {product.name}
           </p>
-          <p className="text-base font-bold text-[var(--color-gold)]">
-            {formatPrice(product.price.cop, product.price.usd)}
-          </p>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-[var(--color-ink-soft)] opacity-70">
+              {selectedVariant.size}
+            </span>
+            <p className="text-base font-bold text-[var(--color-gold)]">
+              {formatPrice(
+                selectedVariant.price.cop,
+                selectedVariant.price.usd
+              )}
+            </p>
+          </div>
         </div>
         <button
           onClick={handleAdd}

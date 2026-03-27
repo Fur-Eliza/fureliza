@@ -3,13 +3,14 @@ import { products } from "@/data/products";
 import CollectionClient from "./CollectionClient";
 
 export const metadata: Metadata = {
-  title: "Coleccion",
+  title: "Colección",
   description:
-    "Explora nuestra coleccion curada de perfumes nicho. Filtra por familia olfativa y estado de animo. Cada fragancia es una experiencia sensorial unica.",
+    "Explora nuestra colección curada de perfumes nicho. Filtra por familia olfativa y estado de ánimo. Cada fragancia es una experiencia sensorial única.",
+  alternates: { canonical: "/collection" },
   openGraph: {
-    title: "Coleccion | Fur Eliza",
+    title: "Colección | Fur Eliza",
     description:
-      "Explora nuestra coleccion curada de perfumes nicho. Cada fragancia es una experiencia.",
+      "Explora nuestra colección curada de perfumes nicho. Cada fragancia es una experiencia.",
   },
 };
 

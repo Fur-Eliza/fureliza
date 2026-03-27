@@ -20,7 +20,7 @@ export default function Accordion({ items }: Props) {
         const isOpen = openIndex === index;
         return (
           <div
-            key={index}
+            key={item.question}
             className="border border-[var(--color-border)] rounded-xl overflow-hidden"
           >
             <button

@@ -106,12 +106,27 @@ button:focus-visible, a:focus-visible {
   }
 }
 
+/* GSAP fallback: ensure animated content is visible if GSAP fails to load */
+.gsap-animated {
+  /* noscript/adblock fallback — GSAP sets opacity via inline style,
+     this CSS is overridden by GSAP's inline style when it works */
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Make all GSAP-animated elements visible immediately */
+  .gsap-animated,
+  .footer-col,
+  .opacity-0 {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
 
   .hero-canvas-wrap {

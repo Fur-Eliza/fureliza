@@ -9,11 +9,12 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Nuestra Historia",
   description:
-    "Fur Eliza nacio de una promesa: traducir la belleza de la musica y la devocion en aromas inolvidables. Lux Intra — la luz interior.",
+    "Fur Eliza nació de una promesa: traducir la belleza de la música y la devoción en aromas inolvidables. Lux Intra — la luz interior.",
+  alternates: { canonical: "/about" },
   openGraph: {
     title: "Nuestra Historia | Fur Eliza",
     description:
-      "Nacida de una promesa, cada fragancia es un movimiento en una sinfonia olfativa.",
+      "Nacida de una promesa, cada fragancia es un movimiento en una sinfonía olfativa.",
   },
 };
 

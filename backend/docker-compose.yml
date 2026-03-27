@@ -1,0 +1,49 @@
+# Requires a .env file in this directory (see .env.example)
+services:
+  # --- MICROSERVICES ---
+
+  catalog-service:
+    build:
+      context: ./services/catalog-service
+      dockerfile: Dockerfile
+    container_name: fureliza-catalog-rust
+    environment:
+      - DATABASE_URL=postgres://fureliza:${DB_PASSWORD}@db:5432/fureliza_catalog
+      - RUST_LOG=${RUST_LOG:-info}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - fureliza-net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # --- INFRASTRUCTURE ---
+
+  db:
+    image: postgres:15-alpine
+    container_name: fureliza-db
+    environment:
+      POSTGRES_USER: fureliza
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: fureliza_catalog
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - fureliza-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fureliza"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  fureliza-net:
+    driver: bridge
+
+volumes:
+  pg_data:

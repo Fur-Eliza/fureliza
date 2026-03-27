@@ -67,8 +67,16 @@ export default function HeroScroll({ product, showTitle = true }: Props) {
         images[i].onload = onEagerLoad;
         images[i].src = frameUrl(frames.directory, i + 1, TOTAL_FRAMES, frames.format);
       }
-      for (let i = preloadCount; i < TOTAL_FRAMES; i++) {
-        images[i].src = frameUrl(frames.directory, i + 1, TOTAL_FRAMES, frames.format);
+      // Lazy-load remaining frames with requestIdleCallback to avoid blocking
+      const loadRemaining = () => {
+        for (let i = preloadCount; i < TOTAL_FRAMES; i++) {
+          images[i].src = frameUrl(frames.directory, i + 1, TOTAL_FRAMES, frames.format);
+        }
+      };
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(loadRemaining);
+      } else {
+        setTimeout(loadRemaining, 200);
       }
 
       // Frame scrubbing
@@ -170,10 +178,12 @@ export default function HeroScroll({ product, showTitle = true }: Props) {
 
     init();
     return () => {
-      if (tl) tl.kill();
-      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-        ScrollTrigger.getAll().forEach((t) => t.kill());
-      });
+      if (tl) {
+        // Kill only this component's ScrollTrigger, not all global ones
+        const st = tl.scrollTrigger;
+        if (st) st.kill();
+        tl.kill();
+      }
     };
   }, [drawFrame, TOTAL_FRAMES, frames, showTitle]);
 
@@ -183,6 +193,10 @@ export default function HeroScroll({ product, showTitle = true }: Props) {
         <div className="hero-canvas-wrap w-full h-full">
           <canvas
             ref={canvasRef}
+            width={1920}
+            height={1080}
+            aria-label={`Experiencia visual inmersiva de ${product.name} por ${product.house}`}
+            role="img"
             className={`w-full h-full object-cover transition-opacity duration-700 ${
               loaded ? "opacity-100" : "opacity-0"
             }`}

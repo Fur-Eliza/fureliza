@@ -3,7 +3,8 @@ export type OlfactoryFamily =
   | "opulent-florals"
   | "vibrant-citrus"
   | "ocean-marine"
-  | "oriental-spiced";
+  | "oriental-spiced"
+  | "gourmand-sweet"; // Added gourmand as it's common
 
 export type Mood =
   | "power"
@@ -11,7 +12,22 @@ export type Mood =
   | "energy"
   | "comfort"
   | "mystery"
-  | "elegance";
+  | "elegance"
+  | "innocence" // Added for softer scents
+  | "rebellion"; // Added for bold scents
+
+export type ProductVariantType = "decant" | "full" | "sample";
+
+export interface ProductVariant {
+  id: string;
+  size: string; // "5ml", "10ml", "50ml", "100ml"
+  type: ProductVariantType;
+  price: {
+    cop: number;
+    usd: number;
+  };
+  inStock: boolean;
+}
 
 export interface ProductInput {
   slug: string;
@@ -22,23 +38,18 @@ export interface ProductInput {
     heart: string[];
     base: string[];
   };
-  price: {
-    cop: number;
-    usd: number;
-  };
-  type: "full" | "decant";
-  size: string;
+  variants: ProductVariant[]; // Replaces single price/size
 }
 
 export interface ProductGenerated {
-  family: OlfactoryFamily;
-  mood: Mood[];
+  family: string; // Relaxed type for flexibility with CMS later
+  mood: string[]; // Relaxed type
   emotionalTags: string[];
   description: string;
   fragrance: {
-    intensity: number;
-    projection: number;
-    longevity: number;
+    intensity: number; // 1-10
+    projection: number; // 1-10
+    longevity: number; // 1-10
   };
   occasions: string[];
   season: string[];

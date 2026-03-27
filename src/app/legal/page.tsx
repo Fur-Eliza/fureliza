@@ -6,12 +6,13 @@ import Toast from "@/components/Toast";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Informacion Legal",
+  title: "Información Legal",
   description:
-    "Terminos de uso, politica de privacidad, politica de devoluciones y aviso legal sobre decants de Fur Eliza.",
+    "Términos de uso, política de privacidad, política de devoluciones y aviso legal sobre decants de Fur Eliza.",
+  alternates: { canonical: "/legal" },
   openGraph: {
-    title: "Informacion Legal | Fur Eliza",
-    description: "Terminos y condiciones de Fur Eliza.",
+    title: "Información Legal | Fur Eliza",
+    description: "Términos y condiciones de Fur Eliza.",
   },
 };
 

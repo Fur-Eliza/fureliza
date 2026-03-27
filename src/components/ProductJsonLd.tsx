@@ -1,10 +1,14 @@
 import { Product } from "@/types/product";
+import { safeJsonLd } from "@/lib/constants";
 
 interface Props {
   product: Product;
 }
 
 export default function ProductJsonLd({ product }: Props) {
+  const prices = product.variants.map((v) => v.price.cop);
+  const hasStock = product.variants.some((v) => v.inStock);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -16,11 +20,15 @@ export default function ProductJsonLd({ product }: Props) {
       name: product.house,
     },
     offers: {
-      "@type": "Offer",
+      "@type": "AggregateOffer",
       url: `https://fureliza.com/perfume/${product.slug}`,
       priceCurrency: "COP",
-      price: product.price.cop,
-      availability: "https://schema.org/InStock",
+      lowPrice: Math.min(...prices),
+      highPrice: Math.max(...prices),
+      offerCount: product.variants.length,
+      availability: hasStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
       seller: {
         "@type": "Organization",
         name: "Fur Eliza",
@@ -29,26 +37,21 @@ export default function ProductJsonLd({ product }: Props) {
     additionalProperty: [
       {
         "@type": "PropertyValue",
-        name: "Olfactory Family",
+        name: "Familia Olfativa",
         value: product.family,
       },
-      {
+      ...product.variants.map((v) => ({
         "@type": "PropertyValue",
-        name: "Size",
-        value: product.size,
-      },
-      {
-        "@type": "PropertyValue",
-        name: "Type",
-        value: product.type === "full" ? "Full Bottle" : "Decant",
-      },
+        name: "Presentacion",
+        value: `${v.size} — ${v.type === "full" ? "Botella Completa" : "Decant"}`,
+      })),
     ],
   };
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
     />
   );
 }

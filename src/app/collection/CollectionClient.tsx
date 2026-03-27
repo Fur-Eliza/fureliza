@@ -12,18 +12,21 @@ import Footer from "@/components/Footer";
 const FAMILY_LABELS: Record<OlfactoryFamily, string> = {
   "deep-woods": "Amaderadas",
   "opulent-florals": "Florales",
-  "vibrant-citrus": "Citricos",
-  "ocean-marine": "Acuaticos",
+  "vibrant-citrus": "Cítricos",
+  "ocean-marine": "Acuáticos",
   "oriental-spiced": "Orientales",
+  "gourmand-sweet": "Gourmand",
 };
 
 const MOOD_LABELS: Record<Mood, string> = {
   power: "Poder",
-  seduction: "Seduccion",
-  energy: "Energia",
+  seduction: "Seducción",
+  energy: "Energía",
   comfort: "Confort",
   mystery: "Misterio",
   elegance: "Elegancia",
+  innocence: "Inocencia",
+  rebellion: "Rebeldía",
 };
 
 interface Props {
@@ -60,7 +63,7 @@ export default function CollectionClient({ products }: Props) {
             </AnimatedSection>
             <AnimatedSection animation="fade-up" delay={0.1}>
               <h1 className="font-[family-name:var(--font-playfair)] text-4xl md:text-6xl font-bold text-gold-gradient mb-4">
-                Coleccion
+                Colección
               </h1>
             </AnimatedSection>
             <AnimatedSection animation="fade-up" delay={0.2}>

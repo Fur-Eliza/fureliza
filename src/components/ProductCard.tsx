@@ -16,37 +16,58 @@ export default function ProductCard({ product, index }: Props) {
   const cardRef = useRef<HTMLElement>(null);
   const [added, setAdded] = useState(false);
 
+  // Show "Desde" (from) using the cheapest variant
+  const mainVariant = [...product.variants].sort(
+    (a, b) => a.price.cop - b.price.cop
+  )[0];
+
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addItem(product);
+    addItem(product, mainVariant.id);
     setAdded(true);
     setTimeout(() => setAdded(false), 1200);
   };
 
   useEffect(() => {
     async function animate() {
-      const { gsap } = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      gsap.registerPlugin(ScrollTrigger);
-      if (!cardRef.current) return;
+      try {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
+        if (!cardRef.current) return;
 
-      gsap.fromTo(cardRef.current,
-        { opacity: 0, y: 80, rotateX: 8 },
-        {
-          opacity: 1, y: 0, rotateX: 0,
-          duration: 0.9, ease: "power3.out",
-          delay: index * 0.15,
-          scrollTrigger: { trigger: cardRef.current, start: "top 88%", once: true },
-        }
-      );
+        gsap.fromTo(
+          cardRef.current,
+          { opacity: 0, y: 80, rotateX: 8 },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            delay: index * 0.15,
+            scrollTrigger: {
+              trigger: cardRef.current,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      } catch {
+        if (cardRef.current) cardRef.current.style.opacity = "1";
+      }
     }
     animate();
   }, [index]);
 
   return (
     <Link href={`/perfume/${product.slug}`}>
-      <article ref={cardRef} className="group cursor-pointer opacity-0" style={{ perspective: "1000px" }}>
+      <article
+        ref={cardRef}
+        className="group cursor-pointer opacity-0"
+        style={{ perspective: "1000px" }}
+      >
         <div className="relative aspect-square overflow-hidden rounded-2xl bg-[var(--color-bg-warm)] mb-4 shadow-lg shadow-black/20 group-hover:shadow-xl group-hover:shadow-[var(--color-gold)]/10 transition-shadow duration-500">
           <Image
             src={product.images.card}
@@ -65,7 +86,7 @@ export default function ProductCard({ product, index }: Props) {
                 : "bg-[var(--color-bg)]/80 text-[var(--color-gold)] border border-[var(--color-gold)]/20 opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-3 lg:group-hover:opacity-100 lg:group-hover:translate-y-0 hover:bg-[var(--color-gold)] hover:text-[var(--color-bg)]"
             }`}
           >
-            {added ? "Added" : "Add to cart"}
+            {added ? "Agregado" : "Agregar rapido"}
           </button>
         </div>
 
@@ -76,12 +97,14 @@ export default function ProductCard({ product, index }: Props) {
           <h3 className="text-base font-semibold text-[var(--color-ink)] mb-1 group-hover:text-[var(--color-gold)] transition-colors duration-300">
             {product.name}
           </h3>
-          <p className="text-sm text-[var(--color-ink-soft)] leading-relaxed mb-2 line-clamp-2">
-            {product.description}
-          </p>
-          <p className="text-lg font-bold text-[var(--color-gold)]">
-            {formatPrice(product.price.cop, product.price.usd)}
-          </p>
+          <div className="flex justify-between items-baseline">
+            <p className="text-lg font-bold text-[var(--color-gold)]">
+              {product.variants.length > 1 && (
+                <span className="text-sm font-normal text-[var(--color-ink-soft)] opacity-70 mr-1">Desde</span>
+              )}
+              {formatPrice(mainVariant.price.cop, mainVariant.price.usd)}
+            </p>
+          </div>
         </div>
       </article>
     </Link>

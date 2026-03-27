@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { products, getProductBySlug } from "@/data/products";
 import ProductPageClient from "./ProductPageClient";
+import ProductJsonLd from "@/components/ProductJsonLd";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -16,8 +17,11 @@ export async function generateMetadata({ params }: Props) {
   if (!product) return {};
 
   return {
-    title: `${product.name} — ${product.house} | Fur Eliza`,
+    title: `${product.name} — ${product.house}`,
     description: product.description,
+    alternates: {
+      canonical: `/perfume/${product.slug}`,
+    },
     openGraph: {
       title: `${product.name} — ${product.house} | Fur Eliza`,
       description: product.description,
@@ -31,5 +35,10 @@ export default async function ProductPage({ params }: Props) {
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
-  return <ProductPageClient product={product} />;
+  return (
+    <>
+      <ProductJsonLd product={product} />
+      <ProductPageClient product={product} />
+    </>
+  );
 }

@@ -1,8 +1,7 @@
 "use client";
 
 import AnimatedSection from "@/components/AnimatedSection";
-
-const WHATSAPP_NUMBER = "573000000000"; // TODO: Replace with real number
+import { WHATSAPP_NUMBER } from "@/lib/constants";
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hola! Me gustaria recibir asesoria personalizada para elegir mi fragancia ideal."
 );

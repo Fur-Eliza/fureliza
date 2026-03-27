@@ -39,7 +39,7 @@ export default function Toast() {
         </svg>
       </div>
       <span className="text-sm font-medium text-[var(--color-ink)]">
-        <strong className="text-[var(--color-gold)]">{lastAdded}</strong> added to cart
+        <strong className="text-[var(--color-gold)]">{lastAdded}</strong> agregado al carrito
       </span>
     </div>
   );

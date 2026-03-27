@@ -5,10 +5,10 @@ import { useCartStore } from "@/store/cartStore";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const { toggle, totalItems, currency, toggleCurrency } = useCartStore();
+  const { toggle, currency, toggleCurrency } = useCartStore();
+  const count = useCartStore((s) => s.items.reduce((n, i) => n + i.quantity, 0));
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const count = totalItems();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 100);
@@ -48,13 +48,19 @@ export default function Navbar() {
               href="/collection"
               className="text-sm font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-gold)] transition-colors duration-300"
             >
-              Coleccion
+              Colección
             </Link>
             <Link
               href="/about"
               className="text-sm font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-gold)] transition-colors duration-300"
             >
               Nosotros
+            </Link>
+            <Link
+              href="/faq"
+              className="text-sm font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-gold)] transition-colors duration-300"
+            >
+              FAQ
             </Link>
           </div>
 
@@ -118,7 +124,7 @@ export default function Navbar() {
               onClick={closeMenu}
               className="text-sm font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-gold)] transition-colors duration-300 py-2"
             >
-              Coleccion
+              Colección
             </Link>
             <Link
               href="/about"
@@ -133,6 +139,13 @@ export default function Navbar() {
               className="text-sm font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-gold)] transition-colors duration-300 py-2"
             >
               FAQ
+            </Link>
+            <Link
+              href="/legal"
+              onClick={closeMenu}
+              className="text-sm font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-gold)] transition-colors duration-300 py-2"
+            >
+              Legal
             </Link>
           </div>
         </div>

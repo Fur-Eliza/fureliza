@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import { Product } from "@/types/product";
+import { WHATSAPP_NUMBER, MAX_CART_QUANTITY } from "@/lib/constants";
 
 export interface CartItem {
   product: Product;
+  variantId: string;
   quantity: number;
 }
 
@@ -15,17 +17,19 @@ interface CartState {
   close: () => void;
   toggle: () => void;
   toggleCurrency: () => void;
-  addItem: (product: Product) => void;
-  removeItem: (productSlug: string) => void;
-  updateQuantity: (productSlug: string, quantity: number) => void;
+  addItem: (product: Product, variantId: string) => void;
+  removeItem: (productSlug: string, variantId: string) => void;
+  updateQuantity: (
+    productSlug: string,
+    variantId: string,
+    quantity: number
+  ) => void;
   clearLastAdded: () => void;
   totalItems: () => number;
   totalPrice: () => number;
   formatPrice: (cop: number, usd: number) => string;
   whatsappCheckoutUrl: () => string;
 }
-
-const WHATSAPP_NUMBER = "573000000000"; // TODO: Replace with real number
 
 export const useCartStore = create<CartState>((set, get) => ({
   items: [],
@@ -39,40 +43,51 @@ export const useCartStore = create<CartState>((set, get) => ({
   toggleCurrency: () =>
     set((s) => ({ currency: s.currency === "COP" ? "USD" : "COP" })),
 
-  addItem: (product) =>
+  addItem: (product, variantId) =>
     set((state) => {
-      const existing = state.items.find((i) => i.product.slug === product.slug);
+      const existing = state.items.find(
+        (i) => i.product.slug === product.slug && i.variantId === variantId
+      );
       if (existing) {
         return {
           lastAdded: product.name,
           items: state.items.map((i) =>
-            i.product.slug === product.slug
-              ? { ...i, quantity: i.quantity + 1 }
+            i.product.slug === product.slug && i.variantId === variantId
+              ? { ...i, quantity: Math.min(i.quantity + 1, MAX_CART_QUANTITY) }
               : i
           ),
         };
       }
       return {
         lastAdded: product.name,
-        items: [...state.items, { product, quantity: 1 }],
+        items: [...state.items, { product, variantId, quantity: 1 }],
       };
     }),
 
   clearLastAdded: () => set({ lastAdded: null }),
 
-  removeItem: (slug) =>
+  removeItem: (slug, variantId) =>
     set((state) => ({
-      items: state.items.filter((i) => i.product.slug !== slug),
+      items: state.items.filter(
+        (i) => !(i.product.slug === slug && i.variantId === variantId)
+      ),
     })),
 
-  updateQuantity: (slug, quantity) =>
+  updateQuantity: (slug, variantId, quantity) =>
     set((state) => {
       if (quantity <= 0) {
-        return { items: state.items.filter((i) => i.product.slug !== slug) };
+        return {
+          items: state.items.filter(
+            (i) => !(i.product.slug === slug && i.variantId === variantId)
+          ),
+        };
       }
+      const clamped = Math.min(quantity, MAX_CART_QUANTITY);
       return {
         items: state.items.map((i) =>
-          i.product.slug === slug ? { ...i, quantity } : i
+          i.product.slug === slug && i.variantId === variantId
+            ? { ...i, quantity: clamped }
+            : i
         ),
       };
     }),
@@ -81,11 +96,14 @@ export const useCartStore = create<CartState>((set, get) => ({
 
   totalPrice: () => {
     const { items, currency } = get();
-    return items.reduce(
-      (sum, i) =>
-        sum + i.quantity * (currency === "COP" ? i.product.price.cop : i.product.price.usd),
-      0
-    );
+    return items.reduce((sum, i) => {
+      const variant = i.product.variants.find((v) => v.id === i.variantId);
+      if (!variant) return sum;
+      return (
+        sum +
+        i.quantity * (currency === "COP" ? variant.price.cop : variant.price.usd)
+      );
+    }, 0);
   },
 
   formatPrice: (cop, usd) => {
@@ -104,20 +122,26 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
 
   whatsappCheckoutUrl: () => {
-    const { items, currency, totalPrice } = get();
+    const { items, currency, totalPrice, formatPrice } = get();
     if (items.length === 0) return "#";
 
     const total = totalPrice();
-    const label = currency;
     const lines = items
       .map((i) => {
-        const price = currency === "COP" ? i.product.price.cop : i.product.price.usd;
-        return `\u2022 ${i.product.name} (${i.product.house}) x${i.quantity} — ${label} ${price.toLocaleString()}`;
+        const variant = i.product.variants.find((v) => v.id === i.variantId);
+        if (!variant) return null;
+        return `\u2022 ${i.product.name} (${variant.size} - ${variant.type}) x${i.quantity} — ${formatPrice(variant.price.cop * i.quantity, variant.price.usd * i.quantity)}`;
       })
+      .filter(Boolean)
       .join("\n");
 
+    const formattedTotal = formatPrice(
+      currency === "COP" ? total : 0,
+      currency === "USD" ? total : 0
+    );
+
     const message = encodeURIComponent(
-      `Hola! Me gustaría ordenar:\n\n${lines}\n\n*Total: ${label} ${total.toLocaleString()}*`
+      `Hola! Me gustaría ordenar:\n\n${lines}\n\n*Total estimado: ${formattedTotal}*\n\nPor favor confirmar disponibilidad y precio final.`
     );
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;

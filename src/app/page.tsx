@@ -9,9 +9,13 @@ import CTAWhatsApp from "@/components/CTAWhatsApp";
 import Footer from "@/components/Footer";
 import { products } from "@/data/products";
 
+export const metadata = {
+  alternates: { canonical: "/" },
+};
+
 export default function Home() {
-  // Use first product as homepage hero
   const heroProduct = products[0];
+  if (!heroProduct) return null;
 
   return (
     <>
@@ -19,7 +23,9 @@ export default function Home() {
       <CartDrawer />
       <Toast />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
+        {/* SEO-visible h1 (HeroScroll h1 is client-rendered + opacity-0) */}
+        <h1 className="sr-only">Fur Eliza — Perfumería Nicho de Lujo</h1>
         <HeroScroll product={heroProduct} />
 
         {/* Collection */}

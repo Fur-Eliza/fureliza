@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
 import Footer from "@/components/Footer";
+import { safeJsonLd } from "@/lib/constants";
 
 const FAQ_ITEMS = [
   {
@@ -47,7 +48,8 @@ const FAQ_ITEMS = [
 export const metadata: Metadata = {
   title: "Preguntas Frecuentes",
   description:
-    "Resolvemos tus dudas sobre decants, envios, pagos y devoluciones. Conoce como funciona Fur Eliza.",
+    "Resolvemos tus dudas sobre decants, envíos, pagos y devoluciones. Conoce cómo funciona Fur Eliza.",
+  alternates: { canonical: "/faq" },
   openGraph: {
     title: "Preguntas Frecuentes | Fur Eliza",
     description:
@@ -78,7 +80,7 @@ export default function FAQPage() {
       <main className="pt-24 pb-14 md:pb-24">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }}
         />
 
         <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
