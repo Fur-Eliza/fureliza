@@ -28,7 +28,7 @@ export default function Navbar() {
         WebkitBackdropFilter: scrolled || menuOpen ? "saturate(1.8) blur(28px)" : "none",
         borderBottom: scrolled ? "1px solid rgba(197, 160, 40, 0.1)" : "1px solid transparent",
       }}
-      aria-label="Navegacion principal"
+      aria-label="Navegación principal"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -95,7 +95,7 @@ export default function Navbar() {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden p-2.5 rounded-full text-[var(--color-ink-soft)] hover:text-[var(--color-gold)] hover:bg-[var(--color-gold)]/5 transition-all duration-500"
-              aria-label={menuOpen ? "Cerrar menu" : "Abrir menu"}
+              aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
               aria-expanded={menuOpen}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">

@@ -5,6 +5,7 @@ import CartDrawer from "@/components/CartDrawer";
 import Toast from "@/components/Toast";
 import ProductCard from "@/components/ProductCard";
 import AnimatedSection from "@/components/AnimatedSection";
+import SplitTitle from "@/components/SplitTitle";
 import CTAWhatsApp from "@/components/CTAWhatsApp";
 import Footer from "@/components/Footer";
 import { products } from "@/data/products";
@@ -33,14 +34,16 @@ export default function Home() {
           <div className="text-center mb-10 md:mb-16">
             <AnimatedSection animation="blur-in">
               <p className="text-sm font-semibold tracking-widest uppercase text-[var(--color-gold)]/60 mb-2">
-                Coleccion
+                Colección
               </p>
             </AnimatedSection>
-            <AnimatedSection animation="fade-up" delay={0.1}>
-              <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-5xl font-bold text-gold-gradient">
-                Fragancias Curadas
-              </h2>
-            </AnimatedSection>
+            <SplitTitle
+              as="h2"
+              delay={0.1}
+              className="font-[family-name:var(--font-playfair)] text-3xl md:text-5xl font-bold text-gold-gradient"
+            >
+              Fragancias Curadas
+            </SplitTitle>
             <AnimatedSection animation="fade-up" delay={0.2}>
               <p className="mt-4 text-[var(--color-ink-soft)] max-w-lg mx-auto">
                 Cada fragancia es una experiencia. Navega su mundo antes de decidir.
@@ -60,7 +63,7 @@ export default function Home() {
                 href="/collection"
                 className="inline-block text-sm font-semibold text-[var(--color-gold)] underline underline-offset-4 decoration-[var(--color-gold)]/30 hover:decoration-[var(--color-gold)] transition-all duration-300"
               >
-                Ver toda la coleccion
+                Ver toda la colección
               </Link>
             </div>
           </AnimatedSection>
@@ -77,17 +80,19 @@ export default function Home() {
                 Nuestra Historia
               </p>
             </AnimatedSection>
-            <AnimatedSection animation="fade-up" delay={0.1}>
-              <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-gold-gradient mb-6">
-                La Luz Interior
-              </h2>
-            </AnimatedSection>
+            <SplitTitle
+              as="h2"
+              delay={0.1}
+              className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-gold-gradient mb-6"
+            >
+              La Luz Interior
+            </SplitTitle>
             <AnimatedSection animation="fade-up" delay={0.2}>
               <div className="space-y-4 text-[var(--color-ink-soft)] leading-relaxed max-w-2xl mx-auto">
                 <p>
-                  Fur Eliza nacio de una promesa: traducir la belleza de la musica y
-                  la devocion en aromas inolvidables. Cada fragancia en nuestra
-                  coleccion es un movimiento en una sinfonia olfativa.
+                  Fur Eliza nació de una promesa: traducir la belleza de la música y
+                  la devoción en aromas inolvidables. Cada fragancia en nuestra
+                  colección es un movimiento en una sinfonía olfativa.
                 </p>
                 <p>
                   Creemos que elegir un perfume debe ser un viaje sensorial, no una

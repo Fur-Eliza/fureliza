@@ -70,7 +70,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
                     {level === "top"
                       ? "Notas de Salida"
                       : level === "heart"
-                      ? "Notas de Corazon"
+                      ? "Notas de Corazón"
                       : "Notas de Fondo"}
                   </h3>
                   <ul className="space-y-1">
@@ -117,7 +117,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
           <AnimatedSection animation="fade-up" delay={0.42}>
             <div className="mb-8">
               <h3 className="text-sm font-semibold text-[var(--color-ink-soft)] mb-3">
-                Selecciona tu presentacion:
+                Selecciona tu presentación:
               </h3>
               <div className="flex flex-wrap gap-3">
                 {sortedVariants.map((variant) => (
@@ -166,7 +166,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
             <p className="mt-2 text-xs text-[var(--color-ink-soft)] mb-6">
               {selectedVariant.type === "decant"
                 ? "Incluye atomizador de viaje de lujo y estuche protector."
-                : "Presentacion original sellada con garantia de autenticidad."}
+                : "Presentación original sellada con garantía de autenticidad."}
             </p>
 
             <button

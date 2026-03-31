@@ -50,16 +50,16 @@ export default function AboutPage() {
           <div className="space-y-5 text-[var(--color-ink-soft)] leading-relaxed">
             <AnimatedSection animation="fade-up" delay={0.1}>
               <p>
-                En 1810, Ludwig van Beethoven compuso una pieza que trascenderia siglos. La
-                llamo &quot;Fur Elise&quot; — para Elisa. Una carta de amor convertida en
-                musica, un regalo que sobrevivio al tiempo.
+                En 1810, Ludwig van Beethoven compuso una pieza que trascendería siglos. La
+                llamó &quot;Für Elise&quot; — para Elisa. Una carta de amor convertida en
+                música, un regalo que sobrevivió al tiempo.
               </p>
             </AnimatedSection>
             <AnimatedSection animation="fade-up" delay={0.15}>
               <p>
-                Fur Eliza nacio de esa misma intencion: crear algo tan intimo y poderoso que
-                no necesite explicacion. Cada fragancia en nuestra coleccion es un movimiento
-                en una sinfonia olfativa — compuesta no para impresionar, sino para
+                Fur Eliza nació de esa misma intención: crear algo tan íntimo y poderoso que
+                no necesite explicación. Cada fragancia en nuestra colección es un movimiento
+                en una sinfonía olfativa — compuesta no para impresionar, sino para
                 conmover.
               </p>
             </AnimatedSection>
@@ -77,22 +77,22 @@ export default function AboutPage() {
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection animation="fade-up">
               <h2 className="font-[family-name:var(--font-playfair)] text-2xl md:text-3xl font-bold text-gold-gradient mb-6">
-                Filosofia
+                Filosofía
               </h2>
             </AnimatedSection>
             <div className="space-y-5 text-[var(--color-ink-soft)] leading-relaxed">
               <AnimatedSection animation="fade-up" delay={0.1}>
                 <p>
-                  <strong className="text-[var(--color-ink)]">Sin genero.</strong> Organizamos
-                  nuestras fragancias por familia olfativa y emocion, nunca por genero. Un
-                  aroma no tiene sexo — tiene caracter.
+                  <strong className="text-[var(--color-ink)]">Sin género.</strong> Organizamos
+                  nuestras fragancias por familia olfativa y emoción, nunca por género. Un
+                  aroma no tiene sexo — tiene carácter.
                 </p>
               </AnimatedSection>
               <AnimatedSection animation="fade-up" delay={0.15}>
                 <p>
-                  <strong className="text-[var(--color-ink)]">Curado por emocion.</strong> Cada
+                  <strong className="text-[var(--color-ink)]">Curado por emoción.</strong> Cada
                   perfume fue seleccionado no solo por su calidad, sino por lo que te hace
-                  sentir. Poder, seduccion, energia, confort — elige tu estado de animo.
+                  sentir. Poder, seducción, energía, confort — elige tu estado de ánimo.
                 </p>
               </AnimatedSection>
               <AnimatedSection animation="fade-up" delay={0.2}>
@@ -110,16 +110,16 @@ export default function AboutPage() {
         <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection animation="scale">
             <h2 className="font-[family-name:var(--font-playfair)] text-2xl md:text-3xl font-bold text-gold-gradient mb-4">
-              Explora la Coleccion
+              Explora la Colección
             </h2>
             <p className="text-[var(--color-ink-soft)] mb-8 max-w-md mx-auto">
-              Cada fragancia tiene su propio mundo. Entra y descubre cual es la tuya.
+              Cada fragancia tiene su propio mundo. Entra y descubre cuál es la tuya.
             </p>
             <Link
               href="/collection"
               className="inline-block px-8 py-4 font-semibold rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] border border-[var(--color-gold)]/30 hover:bg-[var(--color-gold)] hover:text-[var(--color-bg)] transition-all duration-300 active:scale-95"
             >
-              Ver Coleccion
+              Ver Colección
             </Link>
           </AnimatedSection>
         </section>

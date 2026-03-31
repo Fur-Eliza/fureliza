@@ -22,6 +22,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    viewTransition: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },

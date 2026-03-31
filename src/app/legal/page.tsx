@@ -34,7 +34,7 @@ export default function LegalPage() {
             </AnimatedSection>
             <AnimatedSection animation="fade-up" delay={0.1}>
               <h1 className="font-[family-name:var(--font-playfair)] text-4xl md:text-5xl font-bold text-gold-gradient">
-                Informacion Legal
+                Información Legal
               </h1>
             </AnimatedSection>
           </div>
@@ -48,15 +48,15 @@ export default function LegalPage() {
                 </h2>
                 <p className="mb-3">
                   Fur Eliza S.A.S. es una entidad independiente. Los productos tipo decant
-                  ofrecidos en este sitio son re-envasados autenticos de perfumes originales.
-                  Fur Eliza no esta afiliada, patrocinada ni avalada por las casas de perfumeria
+                  ofrecidos en este sitio son re-envasados auténticos de perfumes originales.
+                  Fur Eliza no está afiliada, patrocinada ni avalada por las casas de perfumería
                   cuyos productos comercializa.
                 </p>
                 <p>
                   Todos los nombres de marcas, logotipos y marcas comerciales mencionados en este
-                  sitio son propiedad de sus respectivos titulares y se utilizan unicamente con
+                  sitio son propiedad de sus respectivos titulares y se utilizan únicamente con
                   fines descriptivos e informativos, de acuerdo con la doctrina de primera venta
-                  bajo el regimen andino de propiedad intelectual.
+                  bajo el régimen andino de propiedad intelectual.
                 </p>
               </section>
             </AnimatedSection>
@@ -65,24 +65,24 @@ export default function LegalPage() {
             <AnimatedSection animation="fade-up" delay={0.1}>
               <section>
                 <h2 className="font-[family-name:var(--font-playfair)] text-xl md:text-2xl font-bold text-[var(--color-ink)] mb-4">
-                  Terminos de Uso
+                  Términos de Uso
                 </h2>
                 <p className="mb-3">
-                  Al acceder y utilizar este sitio web, aceptas los siguientes terminos y
-                  condiciones. Si no estas de acuerdo con alguno de estos terminos, te pedimos
+                  Al acceder y utilizar este sitio web, aceptas los siguientes términos y
+                  condiciones. Si no estás de acuerdo con alguno de estos términos, te pedimos
                   que no utilices este sitio.
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-2">
                   <li>
-                    Los precios publicados estan sujetos a cambio sin previo aviso y dependen
+                    Los precios publicados están sujetos a cambio sin previo aviso y dependen
                     de la disponibilidad del producto.
                   </li>
                   <li>
-                    Las imagenes y descripciones de los productos son referencias visuales y
-                    poeticas. El producto fisico puede variar ligeramente en presentacion.
+                    Las imágenes y descripciones de los productos son referencias visuales y
+                    poéticas. El producto físico puede variar ligeramente en presentación.
                   </li>
                   <li>
-                    Las compras se formalizan a traves de WhatsApp. Un pedido no se considera
+                    Las compras se formalizan a través de WhatsApp. Un pedido no se considera
                     confirmado hasta que se verifique el pago.
                   </li>
                   <li>
@@ -97,23 +97,23 @@ export default function LegalPage() {
             <AnimatedSection animation="fade-up" delay={0.15}>
               <section>
                 <h2 className="font-[family-name:var(--font-playfair)] text-xl md:text-2xl font-bold text-[var(--color-ink)] mb-4">
-                  Politica de Privacidad
+                  Política de Privacidad
                 </h2>
                 <p className="mb-3">
-                  Fur Eliza respeta tu privacidad. La informacion personal que compartes con
-                  nosotros a traves de WhatsApp (nombre, direccion, telefono) se utiliza
+                  Fur Eliza respeta tu privacidad. La información personal que compartes con
+                  nosotros a través de WhatsApp (nombre, dirección, teléfono) se utiliza
                   exclusivamente para procesar y enviar tu pedido.
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-2">
-                  <li>No vendemos, alquilamos ni compartimos tu informacion personal con terceros.</li>
+                  <li>No vendemos, alquilamos ni compartimos tu información personal con terceros.</li>
                   <li>No almacenamos datos de pago en nuestro sitio web.</li>
                   <li>
-                    Este sitio puede utilizar cookies anonimas para mejorar la experiencia de
-                    navegacion y analizar el trafico.
+                    Este sitio puede utilizar cookies anónimas para mejorar la experiencia de
+                    navegación y analizar el tráfico.
                   </li>
                   <li>
-                    Puedes solicitar la eliminacion de tus datos personales contactandonos a
-                    traves de WhatsApp.
+                    Puedes solicitar la eliminación de tus datos personales contactándonos a
+                    través de WhatsApp.
                   </li>
                 </ul>
               </section>
@@ -123,17 +123,17 @@ export default function LegalPage() {
             <AnimatedSection animation="fade-up" delay={0.2}>
               <section>
                 <h2 className="font-[family-name:var(--font-playfair)] text-xl md:text-2xl font-bold text-[var(--color-ink)] mb-4">
-                  Politica de Devoluciones
+                  Política de Devoluciones
                 </h2>
                 <p className="mb-3">
                   Debido a la naturaleza de nuestros productos (fragancias), aplicamos la
-                  siguiente politica:
+                  siguiente política:
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-2">
                   <li>
                     <strong className="text-[var(--color-ink)]">Productos sellados:</strong>{" "}
-                    Puedes solicitar devolucion dentro de los 5 dias calendario posteriores a la
-                    recepcion, siempre que el producto se encuentre sellado y en su empaque original.
+                    Puedes solicitar devolución dentro de los 5 días calendario posteriores a la
+                    recepción, siempre que el producto se encuentre sellado y en su empaque original.
                   </li>
                   <li>
                     <strong className="text-[var(--color-ink)]">Productos abiertos:</strong>{" "}
@@ -141,12 +141,12 @@ export default function LegalPage() {
                   </li>
                   <li>
                     <strong className="text-[var(--color-ink)]">Producto defectuoso:</strong>{" "}
-                    Si recibes un producto defectuoso o diferente al solicitado, contactanos
-                    dentro de las primeras 48 horas con evidencia fotografica para gestionar el
+                    Si recibes un producto defectuoso o diferente al solicitado, contáctanos
+                    dentro de las primeras 48 horas con evidencia fotográfica para gestionar el
                     reemplazo o reembolso.
                   </li>
                   <li>
-                    Los costos de envio de devolucion corren por cuenta del comprador, excepto
+                    Los costos de envío de devolución corren por cuenta del comprador, excepto
                     en casos de error de Fur Eliza.
                   </li>
                 </ul>

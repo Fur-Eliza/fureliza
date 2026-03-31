@@ -114,7 +114,7 @@ export default function CartDrawer() {
                 <path d="M16 10a4 4 0 01-8 0" />
               </svg>
               <p className="text-[var(--color-ink-soft)] text-sm">
-                Tu carrito esta vacio
+                Tu carrito está vacío
               </p>
             </div>
           ) : (
@@ -231,7 +231,7 @@ export default function CartDrawer() {
             Completar pedido en WhatsApp
           </a>
           <p className="text-center text-xs text-[var(--color-ink-soft)] mt-3 opacity-60">
-            Seras redirigido a un chat seguro con un asesor.
+            Serás redirigido a un chat seguro con un asesor.
           </p>
         </div>
       </div>

@@ -30,3 +30,6 @@ next-env.d.ts
 # generated frames (placeholder + real)
 public/frames/
 public/products/
+
+# nested working directory (personal)
+fureliza/

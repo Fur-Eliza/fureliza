@@ -12,7 +12,7 @@ interface Props {
 
 const LABELS: Record<string, string> = {
   intensity: "Intensidad",
-  projection: "Proyeccion",
+  projection: "Proyección",
   longevity: "Longevidad",
 };
 

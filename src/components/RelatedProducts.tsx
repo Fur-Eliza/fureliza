@@ -34,7 +34,7 @@ export default function RelatedProducts({ currentSlug, relatedSlugs, family, moo
       <div className="text-center mb-10">
         <AnimatedSection animation="fade-up">
           <h2 className="font-[family-name:var(--font-playfair)] text-2xl md:text-3xl font-bold text-gold-gradient">
-            Si te gusta esta, tambien
+            Si te gusta esta, también
           </h2>
         </AnimatedSection>
       </div>
