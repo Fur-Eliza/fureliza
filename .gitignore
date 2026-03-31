@@ -27,9 +27,8 @@ npm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# generated frames (placeholder + real)
-public/frames/
-public/products/
+# empty placeholder directories
+public/brand/
 
 # nested working directory (personal)
 fureliza/
