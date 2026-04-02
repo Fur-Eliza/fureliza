@@ -39,6 +39,11 @@ export interface ProductInput {
     base: string[];
   };
   variants: ProductVariant[]; // Replaces single price/size
+  retailPrice?: {            // Full bottle retail (for price anchoring)
+    cop: number;
+    usd: number;
+    size: string;            // "100ml", "70ml"
+  };
 }
 
 export interface ProductGenerated {
