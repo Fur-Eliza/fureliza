@@ -12,6 +12,12 @@ Luxury niche perfume ecommerce. Beethoven-inspired brand ("Für Elise" → "Fur 
 
 ## Project Structure
 ```
+scripts/
+├── extract-frames.sh       # FFmpeg: video → 150 desktop + 75 mobile WebP frames
+├── generate-product.ts     # OpenRouter AI: fragrance name → full Product TypeScript object
+├── generate-video.ts       # fal.ai: product photo → cinematic AI video (7 styles)
+├── pipeline.sh             # Master: generate + video + frames in one command
+└── tsconfig.json           # TypeScript config for scripts
 src/
 ├── app/                    # Next.js App Router pages
 │   ├── layout.tsx          # Root layout (fonts, JSON-LD, skip-nav)
@@ -87,8 +93,9 @@ docs/
 ### Product Data Model
 - Products have `variants[]` (decant/full/sample) — never a single price
 - Cheapest variant determines "Desde $X" display price
+- `retailPrice?` enables psychological pricing (crossed-out retail, "Ahorra X%", per-day cost)
 - `emotionalTags` and `mood` drive the future AI quiz recommendation engine
-- 120-frame animation: `frames.directory` + `frames.count` + `frames.format`
+- Variable frame count per product: `frames.directory` + `frames.count` + `frames.format` (HeroScroll reads count dynamically)
 
 ### Security
 - `safeJsonLd()` in `src/lib/constants.ts` — use for ALL JSON-LD to prevent XSS
@@ -114,10 +121,24 @@ docs/
 
 ## Commands
 ```bash
+# Development
 npm run dev          # Start dev server with Turbopack
 npm run build        # Production build
 npx tsc --noEmit     # Type check (must pass clean)
+
+# El Compositor Pipeline (product automation)
+npm run generate "Name" "House"              # Generate product data via OpenRouter AI
+npm run video photo.jpg slug [style]         # Generate AI video via fal.ai (styles: hero|orbit|macro|mood|transform|floating|water)
+npm run frames video.mp4 slug [150] [75]     # Extract WebP scroll frames via FFmpeg
+npm run pipeline "Name" "House" [photo] [style]  # All three in one command
 ```
+
+### El Compositor Pipeline
+- **Text generation**: OpenRouter API (default: Gemini 2.5 Flash). Env: `OPENROUTER_API_KEY`
+- **Video generation**: fal.ai (default: Kling Turbo). Env: `FAL_KEY`. 7 cinematic styles with curated prompts
+- **Frame extraction**: FFmpeg local. Outputs 150 desktop + 75 mobile WebP frames + manifest.json
+- **Fragrance data**: Optional Fragella API ($12/mo, 74K+ fragrances). Env: `FRAGELLA_API_KEY`
+- See `docs/AI_VIDEO_GENERATION_GUIDE.md` for prompt templates, camera movements, lighting vocabulary
 
 ## Language
 - All user-facing text is in **Spanish** (Colombian locale es_CO)

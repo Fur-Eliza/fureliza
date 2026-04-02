@@ -9,34 +9,35 @@
 ### 1. Contenido de Productos
 - **Qué falta**: Solo hay 2 fragancias (Megamare, Baccarat Rouge 540). Se necesitan 6-10 más.
 - **Quién**: Elizabeth decide cuáles fragancias incluir.
-- **Formato**: Para cada fragancia nueva, llenar estos campos:
-  - Nombre, Casa, Descripción poética
-  - Notas: salida, corazón, fondo
-  - Familia olfativa (amaderada, floral, cítrica, acuática, oriental, gourmand)
-  - Mood (poder, seducción, energía, confort, misterio, elegancia, inocencia, rebeldía)
-  - Variantes con precios COP/USD (sample 2ml, decant 5ml, decant 10ml, botella)
-  - Intensidad, proyección, longevidad (1-10)
-  - Ocasiones y temporadas
+- **Cómo agregar**: Con El Compositor, solo se necesita el nombre y la casa:
+  ```bash
+  npm run pipeline "Layton" "Parfums de Marly" foto.jpg
+  ```
+  El pipeline genera automáticamente: descripción, notas, familia, mood, variantes, precios, video AI y frames.
+- **Lo único manual**: Elizabeth fotografía cada frasco con celular (fondo oscuro).
 
-### 2. Fotografía / Renders de Productos
-- **Qué falta**: Las carpetas `public/frames/` y `public/products/` están vacías.
-- **Opciones**:
-  - **Render 3D** (~$100-300/frasco en Fiverr): Se necesita modelo 3D + 120 frames renderizados
-  - **Fotografía real**: Frasco real + lightbox + turntable para 120 fotos
-  - **Mínimo viable**: 1 foto hero + 1 foto card por producto (sin animación scroll)
-- **Formato**: WebP, 1920x1080 para frames, 800x1000 para cards
+### 2. Fotografía de Productos
+- **Qué falta**: Al menos 1 foto por frasco para alimentar el pipeline de video AI.
+- **Requisitos**: Foto con celular, fondo oscuro, buena iluminación. No necesita ser profesional — el AI video la transforma.
+- **Pipeline**: Foto → fal.ai (video AI cinemático) → FFmpeg (150 desktop + 75 mobile WebP frames)
+- **Formatos de salida**: WebP frames 1920x1080 (desktop), 1080x1920 (mobile)
 
-### 3. Deploy a Vercel
+### 3. Crear Cuenta fal.ai
+- **Qué falta**: Registrarse en fal.ai y obtener `FAL_KEY` para generar videos AI.
+- **Pasos**: Ir a fal.ai → Sign up → Dashboard → API Keys → Copiar key
+- **Configurar**: Agregar `FAL_KEY=...` en `.env`
+- **Costo**: ~$0.07/segundo (Kling Turbo). Un video de 5s = ~$0.35
+
+### 4. Deploy a Vercel
 - **Qué falta**: Conectar el repositorio Git a Vercel y apuntar el dominio.
 - **Pasos**:
-  1. Ir a vercel.com → Import Git Repository
+  1. Ir a vercel.com → Import Git Repository (Fur-Eliza/fureliza)
   2. Root directory: `/` (no `/fureliza`)
   3. Environment variable: `NEXT_PUBLIC_WHATSAPP_NUMBER=573004228021`
   4. Apuntar DNS de fureliza.com a Vercel
-- **Tiempo**: 30 minutos
 - **Costo**: $0 (Hobby tier)
 
-### 4. Grain SVG
+### 5. Grain SVG
 - **Qué falta**: El archivo `public/grain.svg` referenciado en `globals.css` (overlay de textura).
 - **Opción**: Generar con un generador online de SVG noise o crear uno simple.
 
@@ -45,30 +46,30 @@
 ## Se Puede Hacer con Código (próximas sesiones)
 
 ### Prioridad Alta
-| Tarea | Tiempo | Notas |
-|---|---|---|
-| Integrar Sanity.io como CMS | 4-6h | Crear schemas, migrar datos, conectar Next.js |
-| Configurar Cloudinary | 2h | Crear cuenta, subir imágenes, configurar next-cloudinary |
-| Favicon + OG Image | 1h | Necesita logo/diseño de Elizabeth |
-| Vercel Analytics | 30min | `npm install @vercel/analytics` + un import |
+| Tarea | Notas |
+|---|---|
+| Integrar Sanity.io como CMS | Crear schemas, migrar datos de `data/products.ts`, conectar Next.js |
+| Configurar Cloudinary | Subir imágenes y frames, configurar f_auto/q_auto |
+| Favicon + OG Image | Necesita logo/diseño de Elizabeth |
+| Vercel Analytics | `npm install @vercel/analytics` + un import |
+| Actualizar modelo AI default | DeepSeek V3.2 ($0.64/M tokens) o Gemini 2.5 Flash ($0.30/M) |
 
 ### Prioridad Media (Fase 2)
-| Tarea | Tiempo | Notas |
-|---|---|---|
-| Quiz "El Compositor" (UI) | 8-12h | 7 pantallas con animaciones, lógica de scoring |
-| Quiz (Motor IA) | 4-6h | Qdrant + embeddings + API route |
-| n8n self-hosted | 2-3h | Docker setup + workflows iniciales |
-| WhatsApp Business API | 2-3h | Cuenta Meta Business + webhook + n8n connection |
-| Chatbot RAG básico | 6-8h | System prompt + RAG pipeline + testing |
+| Tarea | Notas |
+|---|---|
+| Quiz "El Compositor" (UI) | 7 pantallas con animaciones, lógica de scoring |
+| Quiz (Motor IA) | Qdrant + embeddings + API route |
+| WhatsApp Business API | Cuenta Meta Business + webhook + automación |
+| Chatbot RAG básico | "Perfumista virtual" entrenado con catálogo |
+| TikTok content pipeline | AI video → scheduling → posting |
 
 ### Prioridad Baja (Fase 3+)
-| Tarea | Tiempo | Notas |
-|---|---|---|
-| Modelos 3D de frascos | Externo | $100-300/frasco en Fiverr/Upwork |
-| React Three Fiber viewer | 4-6h | Después de tener modelos .glb |
-| Tone.js ambient sound | 4-6h | Diseño sonoro + implementación |
-| NFC tags | Externo | Comprar hardware + desarrollar landing |
-| Nx Monorepo migration | 8-16h | Restructurar todo el proyecto |
+| Tarea | Notas |
+|---|---|
+| React Three Fiber viewer | Después de tener modelos .glb |
+| Tone.js ambient sound | Diseño sonoro + implementación |
+| NFC tags | Comprar hardware + desarrollar landing |
+| Nx Monorepo migration | Restructurar todo el proyecto (docs/THE_ONYX_PROTOCOL.md) |
 
 ---
 
@@ -85,8 +86,11 @@
 - Seguridad: CSP, X-Frame-Options, XSS prevention
 - Accesibilidad: skip-nav, focus rings, reduced-motion
 - Carrito WhatsApp COP/USD
-- 7 páginas completas
+- 11 páginas completas
+- **El Compositor pipeline completo**: generate + video + frames en un comando
+- Psychological pricing (precio tachado, ahorro %, costo/día)
+- Repo público en GitHub (Fur-Eliza/fureliza)
 
 ---
 
-*Actualizado: 31 de Marzo 2026*
+*Actualizado: 2 de Abril 2026*
