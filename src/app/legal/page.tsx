@@ -23,7 +23,7 @@ export default function LegalPage() {
       <CartDrawer />
       <Toast />
 
-      <main className="pt-24 pb-14 md:pb-24">
+      <main id="main-content" tabIndex={-1} className="pt-24 pb-14 md:pb-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12 md:mb-16">

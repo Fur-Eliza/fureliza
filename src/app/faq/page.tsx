@@ -77,7 +77,7 @@ export default function FAQPage() {
       <CartDrawer />
       <Toast />
 
-      <main className="pt-24 pb-14 md:pb-24">
+      <main id="main-content" tabIndex={-1} className="pt-24 pb-14 md:pb-24">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }}

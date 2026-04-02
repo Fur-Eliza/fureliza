@@ -25,7 +25,7 @@ export default function AboutPage() {
       <CartDrawer />
       <Toast />
 
-      <main className="pt-24 pb-14 md:pb-24">
+      <main id="main-content" tabIndex={-1} className="pt-24 pb-14 md:pb-24">
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16 md:mb-24">
           <AnimatedSection animation="blur-in">

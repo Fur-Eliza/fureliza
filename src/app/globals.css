@@ -7,11 +7,11 @@
   --color-gold: #C5A028;
   --color-gold-light: #E8D48B;
   --color-gold-dark: #8B6914;
-  --color-gold-pale: #D4B84A;
+
   --color-ink: #F5F5F5;
   --color-ink-soft: #9CA3AF;
   --color-border: #2A2A2A;
-  --color-overlay: rgba(0, 0, 0, 0.7);
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -44,10 +44,6 @@ body::after {
   background-clip: text;
 }
 
-.text-gold-emboss {
-  color: var(--color-gold);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8), 0 -1px 0 rgba(232, 212, 139, 0.3);
-}
 
 /* Skip navigation link */
 .skip-nav {

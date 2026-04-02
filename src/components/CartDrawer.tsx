@@ -5,17 +5,15 @@ import { useEffect, useRef } from "react";
 import { useCartStore } from "@/store/cartStore";
 
 export default function CartDrawer() {
-  const {
-    items,
-    isOpen,
-    close,
-    removeItem,
-    updateQuantity,
-    totalPrice,
-    currency,
-    formatPrice,
-    whatsappCheckoutUrl,
-  } = useCartStore();
+  const items = useCartStore((s) => s.items);
+  const isOpen = useCartStore((s) => s.isOpen);
+  const close = useCartStore((s) => s.close);
+  const removeItem = useCartStore((s) => s.removeItem);
+  const updateQuantity = useCartStore((s) => s.updateQuantity);
+  const totalPrice = useCartStore((s) => s.totalPrice);
+  const currency = useCartStore((s) => s.currency);
+  const formatPrice = useCartStore((s) => s.formatPrice);
+  const whatsappCheckoutUrl = useCartStore((s) => s.whatsappCheckoutUrl);
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 

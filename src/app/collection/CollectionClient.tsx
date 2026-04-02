@@ -52,7 +52,7 @@ export default function CollectionClient({ products }: Props) {
       <CartDrawer />
       <Toast />
 
-      <main className="pt-24 pb-14 md:pb-24">
+      <main id="main-content" tabIndex={-1} className="pt-24 pb-14 md:pb-24">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-10 md:mb-14">

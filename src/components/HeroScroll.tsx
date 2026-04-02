@@ -43,6 +43,7 @@ export default function HeroScroll({ product, showTitle = true }: Props) {
     let tl: gsap.core.Tween | null = null;
 
     async function init() {
+      try {
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
@@ -174,6 +175,10 @@ export default function HeroScroll({ product, showTitle = true }: Props) {
           start: "top top", end: "5% top", scrub: true,
         },
       });
+      } catch {
+        // GSAP failed (adblocker, etc.) — show static content
+        setLoaded(true);
+      }
     }
 
     init();

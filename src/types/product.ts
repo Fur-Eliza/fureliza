@@ -16,7 +16,7 @@ export type Mood =
   | "innocence" // Added for softer scents
   | "rebellion"; // Added for bold scents
 
-export type ProductVariantType = "decant" | "full" | "sample";
+type ProductVariantType = "decant" | "full" | "sample";
 
 export interface ProductVariant {
   id: string;
@@ -29,7 +29,7 @@ export interface ProductVariant {
   inStock: boolean;
 }
 
-export interface ProductInput {
+interface ProductInput {
   slug: string;
   name: string;
   house: string;
@@ -46,7 +46,7 @@ export interface ProductInput {
   };
 }
 
-export interface ProductGenerated {
+interface ProductGenerated {
   family: string; // Relaxed type for flexibility with CMS later
   mood: string[]; // Relaxed type
   emotionalTags: string[];
@@ -61,7 +61,7 @@ export interface ProductGenerated {
   related: string[];
 }
 
-export interface ProductAssets {
+interface ProductAssets {
   frames: {
     directory: string;
     count: number;

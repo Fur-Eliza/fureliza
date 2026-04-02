@@ -8,6 +8,7 @@ export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    let trigger: { kill: () => void } | undefined;
     async function init() {
       try {
         const { gsap } = await import("gsap");
@@ -15,7 +16,7 @@ export default function Footer() {
         gsap.registerPlugin(ScrollTrigger);
         if (!footerRef.current) return;
 
-        gsap.fromTo(
+        const tween = gsap.fromTo(
           footerRef.current.querySelectorAll(".footer-col"),
           { opacity: 0, y: 40 },
           {
@@ -23,6 +24,7 @@ export default function Footer() {
             scrollTrigger: { trigger: footerRef.current, start: "top 90%", once: true },
           }
         );
+        trigger = tween.scrollTrigger ?? undefined;
       } catch {
         // GSAP failed to load — make columns visible
         footerRef.current?.querySelectorAll(".footer-col").forEach((el) => {
@@ -31,6 +33,7 @@ export default function Footer() {
       }
     }
     init();
+    return () => { trigger?.kill(); };
   }, []);
 
   return (

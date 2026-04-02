@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useCartStore } from "@/store/cartStore";
 
 export default function Toast() {
-  const { lastAdded, clearLastAdded } = useCartStore();
+  const lastAdded = useCartStore((s) => s.lastAdded);
+  const clearLastAdded = useCartStore((s) => s.clearLastAdded);
   const [visible, setVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
 

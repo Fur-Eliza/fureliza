@@ -31,6 +31,7 @@ export default function AnimatedSection({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let trigger: { kill: () => void } | undefined;
     async function init() {
       try {
         const { gsap } = await import("gsap");
@@ -39,19 +40,21 @@ export default function AnimatedSection({
         if (!ref.current) return;
 
         const anim = animations[animation];
-        gsap.fromTo(ref.current, anim.from, {
+        const tween = gsap.fromTo(ref.current, anim.from, {
           ...anim.to,
           duration,
           delay,
           ease: "power3.out",
           scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
         });
+        trigger = tween.scrollTrigger ?? undefined;
       } catch {
         // GSAP failed — make content visible
         if (ref.current) ref.current.style.opacity = "1";
       }
     }
     init();
+    return () => { trigger?.kill(); };
   }, [animation, delay, duration]);
 
   return (

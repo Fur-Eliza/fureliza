@@ -5,7 +5,9 @@ import { useCartStore } from "@/store/cartStore";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const { toggle, currency, toggleCurrency } = useCartStore();
+  const toggle = useCartStore((s) => s.toggle);
+  const currency = useCartStore((s) => s.currency);
+  const toggleCurrency = useCartStore((s) => s.toggleCurrency);
   const count = useCartStore((s) => s.items.reduce((n, i) => n + i.quantity, 0));
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);

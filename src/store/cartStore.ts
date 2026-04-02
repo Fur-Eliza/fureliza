@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { Product } from "@/types/product";
 import { WHATSAPP_NUMBER, MAX_CART_QUANTITY } from "@/lib/constants";
 
-export interface CartItem {
+interface CartItem {
   product: Product;
   variantId: string;
   quantity: number;
@@ -13,7 +13,6 @@ interface CartState {
   isOpen: boolean;
   currency: "COP" | "USD";
   lastAdded: string | null;
-  open: () => void;
   close: () => void;
   toggle: () => void;
   toggleCurrency: () => void;
@@ -37,7 +36,6 @@ export const useCartStore = create<CartState>((set, get) => ({
   currency: "COP",
   lastAdded: null,
 
-  open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false }),
   toggle: () => set((s) => ({ isOpen: !s.isOpen })),
   toggleCurrency: () =>

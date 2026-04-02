@@ -12,7 +12,8 @@ interface Props {
 }
 
 export default function ProductCard({ product, index }: Props) {
-  const { addItem, formatPrice } = useCartStore();
+  const addItem = useCartStore((s) => s.addItem);
+  const formatPrice = useCartStore((s) => s.formatPrice);
   const cardRef = useRef<HTMLElement>(null);
   const [added, setAdded] = useState(false);
 
@@ -30,6 +31,7 @@ export default function ProductCard({ product, index }: Props) {
   };
 
   useEffect(() => {
+    let trigger: { kill: () => void } | undefined;
     async function animate() {
       try {
         const { gsap } = await import("gsap");
@@ -37,7 +39,7 @@ export default function ProductCard({ product, index }: Props) {
         gsap.registerPlugin(ScrollTrigger);
         if (!cardRef.current) return;
 
-        gsap.fromTo(
+        const tween = gsap.fromTo(
           cardRef.current,
           { opacity: 0, y: 80, rotateX: 8 },
           {
@@ -54,11 +56,13 @@ export default function ProductCard({ product, index }: Props) {
             },
           }
         );
+        trigger = tween.scrollTrigger ?? undefined;
       } catch {
         if (cardRef.current) cardRef.current.style.opacity = "1";
       }
     }
     animate();
+    return () => { trigger?.kill(); };
   }, [index]);
 
   return (

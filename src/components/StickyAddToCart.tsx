@@ -10,7 +10,8 @@ interface Props {
 }
 
 export default function StickyAddToCart({ product, selectedVariant }: Props) {
-  const { addItem, formatPrice } = useCartStore();
+  const addItem = useCartStore((s) => s.addItem);
+  const formatPrice = useCartStore((s) => s.formatPrice);
   const [visible, setVisible] = useState(false);
   const [added, setAdded] = useState(false);
 

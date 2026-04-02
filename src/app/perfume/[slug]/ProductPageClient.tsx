@@ -14,7 +14,8 @@ import Footer from "@/components/Footer";
 import { useState } from "react";
 
 export default function ProductPageClient({ product }: { product: Product }) {
-  const { addItem, formatPrice } = useCartStore();
+  const addItem = useCartStore((s) => s.addItem);
+  const formatPrice = useCartStore((s) => s.formatPrice);
   const [added, setAdded] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(
     product.variants[0]
@@ -38,7 +39,7 @@ export default function ProductPageClient({ product }: { product: Product }) {
       <CartDrawer />
       <Toast />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <HeroScroll product={product} />
 
         {/* Product details */}
