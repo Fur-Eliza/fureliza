@@ -113,6 +113,20 @@ export default function ProductPageClient({ product }: { product: Product }) {
             </div>
           </AnimatedSection>
 
+          {/* Price anchoring: show retail price crossed out */}
+          {product.retailPrice && (
+            <AnimatedSection animation="fade-up" delay={0.41}>
+              <div className="mb-4">
+                <p className="text-xs tracking-widest uppercase text-[var(--color-ink-soft)] mb-1">
+                  Botella completa {product.retailPrice.size}
+                </p>
+                <p className="text-lg line-through text-[var(--color-ink-soft)]/50">
+                  {formatPrice(product.retailPrice.cop, product.retailPrice.usd)}
+                </p>
+              </div>
+            </AnimatedSection>
+          )}
+
           {/* Variant Selector */}
           <AnimatedSection animation="fade-up" delay={0.42}>
             <div className="mb-8">
@@ -141,11 +155,31 @@ export default function ProductPageClient({ product }: { product: Product }) {
                         {variant.size}
                       </span>
                       <span className="text-xs opacity-70 capitalize">
-                        {variant.type === "full" ? "Botella" : "Decant"}
+                        {variant.type === "full"
+                          ? "Botella"
+                          : variant.type === "sample"
+                          ? "Muestra"
+                          : "Decant"}
                       </span>
                       <span className="text-xs font-bold mt-1">
                         {formatPrice(variant.price.cop, variant.price.usd)}
                       </span>
+                      {product.retailPrice && (
+                        <span className="text-xs text-[var(--color-gold)]">
+                          Ahorra{" "}
+                          {Math.round(
+                            (1 -
+                              variant.price.cop / product.retailPrice.cop) *
+                              100
+                          )}
+                          %
+                        </span>
+                      )}
+                      {variant.type === "decant" && (
+                        <span className="text-[10px] text-[var(--color-ink-soft)]">
+                          ~{formatPrice(Math.round(variant.price.cop / 30), Math.round(variant.price.usd / 30))}/día
+                        </span>
+                      )}
                     </div>
                   </button>
                 ))}
