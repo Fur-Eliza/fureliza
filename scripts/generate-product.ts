@@ -6,7 +6,7 @@
 //   OPENROUTER_MODEL    — Model to use (default: anthropic/claude-sonnet-4)
 
 const OPENROUTER_BASE = "https://openrouter.ai/api/v1/chat/completions";
-const DEFAULT_MODEL = "anthropic/claude-sonnet-4";
+const DEFAULT_MODEL = "google/gemini-2.5-flash";
 
 // --- Types (mirror src/types/product.ts) ---
 
@@ -150,7 +150,7 @@ IMPORTANTE: Solo JSON puro, sin backticks, sin explicaciones.`;
       "Authorization": `Bearer ${apiKey}`,
       "Content-Type": "application/json",
       "HTTP-Referer": "https://fureliza.com",
-      "X-Title": "Fur Eliza — El Compositor",
+      "X-Title": "Fur Eliza - El Compositor",
     },
     body: JSON.stringify({
       model,
