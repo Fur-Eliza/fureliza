@@ -6,8 +6,19 @@
 
 set -euo pipefail
 
+if [[ $# -lt 2 ]]; then
+  echo "Usage: ./scripts/extract-frames.sh <video-file> <product-slug> [desktop-frames] [mobile-frames]"
+  echo "Example: ./scripts/extract-frames.sh video.mp4 layton 150 75"
+  exit 1
+fi
+
 VIDEO="$1"
 SLUG="$2"
+
+if [[ ! "$SLUG" =~ ^[a-z0-9-]+$ ]]; then
+  echo "Error: Slug must be lowercase alphanumeric with hyphens only (got: '$SLUG')"
+  exit 1
+fi
 DESKTOP_FRAMES="${3:-150}"
 MOBILE_FRAMES="${4:-75}"
 DESKTOP_QUALITY=80
@@ -34,6 +45,11 @@ if [[ -z "$TOTAL" || "$TOTAL" -eq 0 ]]; then
   # Fallback: estimate from duration and fps
   TOTAL=$(ffprobe -v error -select_streams v:0 \
     -show_entries stream=nb_frames -of csv=p=0 "$VIDEO")
+fi
+
+if [[ -z "$TOTAL" || "$TOTAL" -le 0 ]]; then
+  echo "Error: Could not determine frame count for '$VIDEO'"
+  exit 1
 fi
 
 echo "Source video: $VIDEO ($TOTAL frames)"
