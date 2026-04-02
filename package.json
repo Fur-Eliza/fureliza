@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "tsx scripts/generate-product.ts",
+    "video": "tsx scripts/generate-video.ts",
     "frames": "./scripts/extract-frames.sh",
     "pipeline": "./scripts/pipeline.sh"
   },
@@ -27,6 +28,7 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
+    "@fal-ai/client": "^1.9.5",
     "tsx": "^4.21.0"
   }
 }
