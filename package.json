@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "tsx scripts/generate-product.ts",
+    "frames": "./scripts/extract-frames.sh",
+    "pipeline": "./scripts/pipeline.sh"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
