@@ -1,9 +1,12 @@
 // generate-product.ts — Generate a complete Product object from fragrance name
-// Usage: ANTHROPIC_API_KEY=sk-... npx tsx scripts/generate-product.ts "Layton" "Parfums de Marly"
+// Usage: OPENROUTER_API_KEY=sk-... npx tsx scripts/generate-product.ts "Layton" "Parfums de Marly"
 //
-// Optional env: FRAGELLA_API_KEY for real data. Without it, uses manual input mode.
+// Optional env:
+//   FRAGELLA_API_KEY    — For real fragrance data from Fragella API
+//   OPENROUTER_MODEL    — Model to use (default: anthropic/claude-sonnet-4)
 
-import Anthropic from "@anthropic-ai/sdk";
+const OPENROUTER_BASE = "https://openrouter.ai/api/v1/chat/completions";
+const DEFAULT_MODEL = "anthropic/claude-sonnet-4";
 
 // --- Types (mirror src/types/product.ts) ---
 
@@ -78,12 +81,12 @@ async function fetchFragellaData(
         }
       }
     } catch {
-      console.warn("Fragella API failed, using Claude for data generation");
+      console.warn("Fragella API failed, using AI for data generation");
     }
   }
 
-  // Fallback: ask Claude to provide factual fragrance data
-  console.log("No Fragella API key — Claude will generate based on its knowledge");
+  // Fallback: AI will generate factual fragrance data
+  console.log("No Fragella API key — AI will generate based on its knowledge");
   return {
     name,
     house,
@@ -95,10 +98,11 @@ async function fetchFragellaData(
   };
 }
 
-// --- Claude API content generation ---
+// --- OpenRouter API content generation ---
 
 async function generateContent(
-  client: Anthropic,
+  apiKey: string,
+  model: string,
   data: FragellaData
 ): Promise<Omit<GeneratedProduct, "variants" | "retailPrice" | "frames" | "images">> {
   const needsFactualData = data.notes.top.length === 0;
@@ -140,15 +144,36 @@ Genera un JSON con EXACTAMENTE esta estructura (sin markdown, solo JSON puro):
 
 IMPORTANTE: Solo JSON puro, sin backticks, sin explicaciones.`;
 
-  const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
-    max_tokens: 1024,
-    messages: [{ role: "user", content: prompt }],
+  const res = await fetch(OPENROUTER_BASE, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": "https://fureliza.com",
+      "X-Title": "Fur Eliza — El Compositor",
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: 1024,
+      messages: [{ role: "user", content: prompt }],
+    }),
   });
 
-  const text =
-    response.content[0].type === "text" ? response.content[0].text : "";
-  return JSON.parse(text.trim());
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`OpenRouter API error (${res.status}): ${err}`);
+  }
+
+  const json = await res.json();
+  const text = json.choices?.[0]?.message?.content ?? "";
+
+  if (!text) {
+    throw new Error("OpenRouter returned empty response");
+  }
+
+  // Strip markdown code fences if model wraps in ```json
+  const cleaned = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
+  return JSON.parse(cleaned);
 }
 
 // --- Main ---
@@ -159,32 +184,35 @@ async function main() {
 
   if (!name || !house) {
     console.error(
-      'Usage: ANTHROPIC_API_KEY=sk-... npx tsx scripts/generate-product.ts "Layton" "Parfums de Marly"'
+      'Usage: OPENROUTER_API_KEY=sk-... npx tsx scripts/generate-product.ts "Layton" "Parfums de Marly"'
     );
     console.error("");
-    console.error("Optional env vars:");
-    console.error("  FRAGELLA_API_KEY  — For real fragrance data from Fragella API");
-    console.error("  ANTHROPIC_API_KEY — For AI-generated descriptions (required)");
+    console.error("Env vars:");
+    console.error("  OPENROUTER_API_KEY — OpenRouter API key (required)");
+    console.error(`  OPENROUTER_MODEL   — Model to use (default: ${DEFAULT_MODEL})`);
+    console.error("  FRAGELLA_API_KEY   — For real fragrance data from Fragella API");
     process.exit(1);
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    console.error("Error: ANTHROPIC_API_KEY is required");
-    console.error("Get one at: https://console.anthropic.com/");
+    console.error("Error: OPENROUTER_API_KEY is required");
+    console.error("Get one at: https://openrouter.ai/keys");
     process.exit(1);
   }
 
-  console.log(`Generating product data for: ${name} by ${house}\n`);
+  const model = process.env.OPENROUTER_MODEL ?? DEFAULT_MODEL;
+
+  console.log(`Generating product data for: ${name} by ${house}`);
+  console.log(`Model: ${model}\n`);
 
   // Step 1: Fetch fragrance data
   console.log("1. Fetching fragrance data...");
   const fragellaData = await fetchFragellaData(name, house);
 
-  // Step 2: Generate content with Claude
-  console.log("2. Generating poetic content with Claude...");
-  const client = new Anthropic({ apiKey });
-  const generated = await generateContent(client, fragellaData);
+  // Step 2: Generate content with AI via OpenRouter
+  console.log("2. Generating poetic content via OpenRouter...");
+  const generated = await generateContent(apiKey, model, fragellaData);
 
   // Step 3: Assemble full product
   const slug = generated.slug;
@@ -232,10 +260,9 @@ async function main() {
   console.log("\n3. Product generated!\n");
   console.log("--- PASTE INTO src/data/products.ts ---\n");
 
-  // Pretty print as TypeScript
   const ts = JSON.stringify(product, null, 2)
-    .replace(/"([^"]+)":/g, "$1:")  // Remove quotes from keys
-    .replace(/"/g, '"');            // Keep string quotes
+    .replace(/"([^"]+)":/g, "$1:")
+    .replace(/"/g, '"');
 
   console.log(ts);
 

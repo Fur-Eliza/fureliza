@@ -3,9 +3,10 @@
 # Usage: ./scripts/pipeline.sh "Layton" "Parfums de Marly" video.mp4
 #
 # Requires:
-#   ANTHROPIC_API_KEY env var
+#   OPENROUTER_API_KEY env var
+#   Optional: OPENROUTER_MODEL env var (default: anthropic/claude-sonnet-4)
 #   Optional: FRAGELLA_API_KEY env var
-#   ffmpeg installed
+#   ffmpeg installed (for video frames)
 
 set -euo pipefail
 
