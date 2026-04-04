@@ -4,70 +4,67 @@
 
 ---
 
-## Bloquea Lanzamiento (necesita acción de Elizabeth/equipo)
+## Bloquea Lanzamiento
 
-### 1. Contenido de Productos
-- **Qué falta**: Solo hay 2 fragancias (Megamare, Baccarat Rouge 540). Se necesitan 6-10 más.
-- **Quién**: Elizabeth decide cuáles fragancias incluir.
-- **Cómo agregar**: Con El Compositor, solo se necesita el nombre y la casa:
-  ```bash
-  npm run pipeline "Layton" "Parfums de Marly" foto.jpg
-  ```
-  El pipeline genera automáticamente: descripción, notas, familia, mood, variantes, precios, video AI y frames.
-- **Lo único manual**: Elizabeth fotografía cada frasco con celular (fondo oscuro).
+### 1. Comprar Inventario (Tier 1 primero)
+- **Qué**: Hacivat (Nishane), Layton (PDM), Naxos (Xerjoff) — $540 USD grey market
+- **Dónde**: Jomashop, AllBeauty, FragranceNet
+- **Casillero**: ~$10-18 USD per paquete (Miami → Colombia)
+- **Landed total Tier 1**: ~$743 USD
 
 ### 2. Fotografía de Productos
-- **Qué falta**: Al menos 1 foto por frasco para alimentar el pipeline de video AI.
-- **Requisitos**: Foto con celular, fondo oscuro, buena iluminación. No necesita ser profesional — el AI video la transforma.
-- **Pipeline**: Foto → fal.ai (video AI cinemático) → FFmpeg (150 desktop + 75 mobile WebP frames)
-- **Formatos de salida**: WebP frames 1920x1080 (desktop), 1080x1920 (mobile)
+- **Qué**: Al menos 1 foto por frasco para alimentar el pipeline de video
+- **Requisitos**: Foto con celular, fondo oscuro, buena iluminación
+- **Pipeline**: Foto → Gemini (temporal) o fal.ai → FFmpeg (150 desktop + 75 mobile WebP frames)
 
-### 3. Crear Cuenta fal.ai
-- **Qué falta**: Registrarse en fal.ai y obtener `FAL_KEY` para generar videos AI.
-- **Pasos**: Ir a fal.ai → Sign up → Dashboard → API Keys → Copiar key
-- **Configurar**: Agregar `FAL_KEY=...` en `.env`
-- **Costo**: ~$0.07/segundo (Kling Turbo). Un video de 5s = ~$0.35
+### 3. Generar Videos con Gemini (temporal)
+- **Qué**: Crear video cinemático de 5s para cada fragancia usando Gemini
+- **Prompts**: Ver `docs/AI_VIDEO_GENERATION_GUIDE.md` (7 estilos, recomendado "hero")
+- **Después**: Extraer frames con `npm run frames video.mp4 slug`
+- **Nota**: Esto es temporal mientras se recarga fal.ai. Después se usa `npm run pipeline` automatizado.
 
 ### 4. Configurar Dominio fureliza.com
-- **Qué falta**: Apuntar DNS del dominio a Vercel (el deploy ya está hecho en fureliza.vercel.app)
+- **Qué**: Apuntar DNS del dominio a Vercel
 - **Pasos**:
-  1. En el registrador del dominio, agregar: A record `@` → `76.76.21.21`
+  1. A record `@` → `76.76.21.21`
   2. CNAME `www` → `cname.vercel-dns.com`
   3. O desde Vercel Dashboard → Settings → Domains → Add `fureliza.com`
 
-### 5. Grain SVG
-- **Qué falta**: El archivo `public/grain.svg` referenciado en `globals.css` (overlay de textura).
-- **Opción**: Generar con un generador online de SVG noise o crear uno simple.
+### 5. Recargar fal.ai
+- **Qué**: Recargar créditos en fal.ai para volver al pipeline automatizado
+- **Costo**: ~$0.07/segundo (Kling Turbo). Un video de 5s = ~$0.35
+- **Configurar**: `FAL_KEY=...` en `.env`
 
 ---
 
 ## Se Puede Hacer con Código (próximas sesiones)
 
-### Prioridad Alta
+### Prioridad Alta (Launch)
 | Tarea | Notas |
 |---|---|
-| Integrar Sanity.io como CMS | Crear schemas, migrar datos de `data/products.ts`, conectar Next.js |
-| Configurar Cloudinary | Subir imágenes y frames, configurar f_auto/q_auto |
-| Favicon + OG Image | Necesita logo/diseño de Elizabeth |
+| Agregar productos al catálogo | `npm run generate "Name" "House"` + editar `src/data/products.ts` |
+| Extraer frames de videos | `npm run frames video.mp4 slug` |
+| Grain SVG | Generar overlay de textura para `public/grain.svg` |
+| Favicon + OG Image | Crear y configurar para redes sociales |
 | Vercel Analytics | `npm install @vercel/analytics` + un import |
-| Actualizar modelo AI default | DeepSeek V3.2 ($0.64/M tokens) o Gemini 2.5 Flash ($0.30/M) |
 
-### Prioridad Media (Fase 2)
+### Prioridad Alta (Phase 2)
 | Tarea | Notas |
 |---|---|
 | Quiz "El Compositor" (UI) | 7 pantallas con animaciones, lógica de scoring |
-| Quiz (Motor IA) | Qdrant + embeddings + API route |
-| WhatsApp Business API | Cuenta Meta Business + webhook + automación |
-| Chatbot RAG básico | "Perfumista virtual" entrenado con catálogo |
-| TikTok content pipeline | AI video → scheduling → posting |
+| "Componer tu Sinfonía" — Layering system | UI + guías de combinación |
+| Tarjetas de Colección 1ml | Diseño + QR → experiencia digital |
+| Sanity.io CMS | Migrar de `data/products.ts` a CMS para Elizabeth |
+| WhatsApp AI Concierge | RAG + WhatsApp Business API |
 
-### Prioridad Baja (Fase 3+)
+### Prioridad Media (Phase 3)
 | Tarea | Notas |
 |---|---|
-| React Three Fiber viewer | Después de tener modelos .glb |
-| Tone.js ambient sound | Diseño sonoro + implementación |
-| NFC tags | Comprar hardware + desarrollar landing |
-| Nx Monorepo migration | Restructurar todo el proyecto (docs/THE_ONYX_PROTOCOL.md) |
+| NFC tags | Hardware + landing de autenticidad |
+| "El Compositor Biológico" | Investigación genómica + alianza con lab |
+| Terroir Colombiano | Sourcing de ingredientes locales |
+| Three.js 3D viewer | Modelos .glb de frascos |
+| Ambient sound | Diseño sonoro por familia olfativa |
 
 ---
 
@@ -75,20 +72,19 @@
 
 - TypeScript compila limpio (0 errores)
 - Build pasa (11/11 páginas)
-- 39 issues de code review corregidos
-- ScrollSmoother (smooth scroll global)
-- SplitText (animaciones de caracteres en títulos)
-- View Transitions API (transiciones GPU entre páginas)
-- Acentos corregidos en todo el sitio (30+ tildes)
+- 39 issues de code review + 19 fixes pre-deploy = todo corregido
+- GSAP (ScrollSmoother, SplitText, ScrollTrigger) con cleanup correcto
 - SEO: JSON-LD, sitemap, canonical URLs, robots.txt
 - Seguridad: CSP, X-Frame-Options, XSS prevention
 - Accesibilidad: skip-nav, focus rings, reduced-motion
 - Carrito WhatsApp COP/USD
 - 11 páginas completas
-- **El Compositor pipeline completo**: generate + video + frames en un comando
-- Psychological pricing (precio tachado, ahorro %, costo/día)
+- El Compositor pipeline completo
+- Psychological pricing
+- Deploy en Vercel (fureliza.vercel.app)
 - Repo público en GitHub (Fur-Eliza/fureliza)
+- Claude Code setup (.claude/ rules, commands, hooks)
 
 ---
 
-*Actualizado: 2 de Abril 2026*
+*Actualizado: 4 de Abril 2026*

@@ -1,6 +1,6 @@
 # Fur Eliza — Estado del Proyecto y Próximos Pasos
 
-> Última actualización: 2 de Abril 2026
+> Última actualización: 4 de Abril 2026
 
 ---
 
@@ -47,32 +47,15 @@
 | Master pipeline (todo en un comando) | Hecho | `scripts/pipeline.sh` |
 | NPM scripts (generate, video, frames, pipeline) | Hecho | `package.json` |
 | Video prompt engineering guide | Hecho | `docs/AI_VIDEO_GENERATION_GUIDE.md` |
-| Design doc | Hecho | `docs/plans/2026-04-01-catalog-automation-design.md` |
-| Implementation plan (8 tasks) | Hecho | `docs/plans/2026-04-02-compositor-implementation.md` |
 
-### SEO y Accesibilidad
+### SEO, Accesibilidad y Seguridad
 | Componente | Estado |
 |---|---|
-| JSON-LD Organization (root layout) | Hecho |
-| JSON-LD AggregateOffer (productos) | Hecho |
-| JSON-LD FAQPage | Hecho |
-| Sitemap dinámico | Hecho |
-| Robots.txt | Hecho |
-| Canonical URLs en todas las páginas | Hecho |
-| Skip-nav link | Hecho |
-| Focus visible rings (dorado) | Hecho |
-| prefers-reduced-motion | Hecho |
+| JSON-LD Organization, AggregateOffer, FAQPage | Hecho |
+| Sitemap dinámico + Robots.txt + Canonical URLs | Hecho |
+| Skip-nav, focus rings (dorado), prefers-reduced-motion | Hecho |
 | safeJsonLd() anti-XSS | Hecho |
-
-### Seguridad
-| Componente | Estado |
-|---|---|
-| CSP headers | Hecho |
-| X-Frame-Options DENY | Hecho |
-| X-Content-Type-Options nosniff | Hecho |
-| Referrer-Policy | Hecho |
-| Permissions-Policy | Hecho |
-| .env en .gitignore | Hecho |
+| CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy | Hecho |
 
 ### Calidad de Código
 | Acción | Estado |
@@ -80,73 +63,98 @@
 | `tsc --noEmit` — 0 errores | Pasando |
 | `next build` — 11/11 páginas + not-found | Pasando |
 | Code review (39 issues corregidos) | Completado |
-| Pre-deploy audit (3 agentes, 19 fixes) | Completado |
-| Repo público en GitHub | Hecho |
+| Pre-deploy audit (19 fixes adicionales) | Completado |
 | Deploy a Vercel (fureliza.vercel.app) | Hecho |
 | Claude Code setup (.claude/ rules, commands, hooks) | Hecho |
 
 ---
 
-## 2. Lo Que Falta por Implementar
+## 2. Catálogo de Lanzamiento — 10 Fragancias
 
-### Fase 1 — La Base (Prioridad: AHORA)
+### Seleccionadas (Abril 4, 2026)
 
-#### Crítico (bloquea lanzamiento)
+| # | Fragancia | Casa | Tier | Estado |
+|---|-----------|------|------|--------|
+| 1 | Megamare | Orto Parisi | — | ✅ En sitio |
+| 2 | Baccarat Rouge 540 | MFK | — | ✅ En sitio |
+| 3 | Hacivat | Nishane | 1 | ⏳ Por agregar |
+| 4 | Layton | Parfums de Marly | 1 | ⏳ Por agregar |
+| 5 | Naxos | Xerjoff | 1 | ⏳ Por agregar |
+| 6 | Side Effect | Initio | 2 | ⏳ Por agregar |
+| 7 | Santal 33 | Le Labo | 2 | ⏳ Por agregar |
+| 8 | Lost Cherry | Tom Ford | 2 | ⏳ Por agregar |
+| 9 | Delina | Parfums de Marly | 3 | ⏳ Por agregar |
+| 10 | Grand Soir | MFK | 3 | ⏳ Por agregar |
 
-| Tarea | Dificultad | Dependencias |
-|---|---|---|
-| **Contenido real de productos** — Agregar 6-10 fragancias al catálogo | Baja (automatizado) | Elizabeth decide cuáles. Pipeline genera todo. |
-| **Fotos de productos** — Al menos 1 foto por frasco para el AI video | Media | Elizabeth fotografía frascos con celular |
-| **Crear cuenta fal.ai** — Para generar videos AI del pipeline | Baja | Registrarse en fal.ai, obtener FAL_KEY |
-| ~~**Deploy a Vercel**~~ | ~~Hecho~~ | Deployado en fureliza.vercel.app |
-| ~~**Variables de entorno en producción**~~ | ~~Hecho~~ | WHATSAPP_NUMBER configurado |
+**Inversión total**: ~$2,283 USD landed (8 frascos nuevos)
+**Revenue proyectado mes 1**: ~$400-800 USD
 
-#### Importante (mejora experiencia)
-
-| Tarea | Dificultad |
-|---|---|
-| **Integrar Sanity.io** — Migrar productos de `data/products.ts` a CMS | Media |
-| **Cloudinary** — Subir imágenes y frames, configurar f_auto/q_auto | Baja |
-| **Favicon y OG image** — Crear y configurar para redes sociales | Baja |
-| **Google Analytics / Vercel Analytics** — Tracking básico | Baja |
-| **Actualizar default model** — Cambiar a DeepSeek V3.2 ($0.64/M tokens, 4x más barato) | Baja |
-
-### Fase 2 — La Inteligencia (1-3 meses)
-
-| Tarea | Dificultad |
-|---|---|
-| **Quiz "El Compositor"** — 7 preguntas emocionales + UI inmersiva | Alta |
-| **Qdrant + OpenAI embeddings** — Motor de recomendación semántico | Media |
-| **WhatsApp Business API** — Conectar Meta API con automación | Media |
-| **Chatbot RAG** — "Perfumista virtual" entrenado con catálogo | Alta |
-| **TikTok content pipeline** — AI video → scheduling → posting | Media |
-
-### Fase 3+ — Ver `docs/VISION.md` para roadmap completo
+Ver detalles completos en `docs/plans/2026-04-04-launch-roadmap-design.md`
 
 ---
 
-## 3. Costos Actuales
+## 3. Plan de Ejecución
 
-| Servicio | Costo mensual |
-|---|---|
-| Vercel (hobby tier) | $0 |
-| OpenRouter (pipeline texto) | ~$1 (300 productos/mes) |
-| fal.ai (pipeline video) | ~$5-25 (10-50 videos/mes) |
-| Dominio fureliza.com | ~$1/mes ($12/año) |
+### Semana 1: Tier 1 + DNS
+- [ ] Comprar Hacivat, Layton, Naxos
+- [ ] Fotografiar frascos
+- [ ] Generar videos (Gemini manual, fal.ai cuando se recargue)
+- [ ] Extraer frames + generar datos + agregar al sitio
+- [ ] Configurar DNS fureliza.com → Vercel
+
+### Semana 2: Tier 2 + Contenido
+- [ ] Comprar Side Effect, Santal 33, Lost Cherry
+- [ ] Repetir flujo: foto → video → frames → datos
+- [ ] Crear contenido TikTok/Reels
+- [ ] Abrir "El Salón" (comunidad WhatsApp)
+
+### Semana 3: Tier 3 + Lanzamiento
+- [ ] Comprar Delina, Grand Soir
+- [ ] Completar catálogo a 10 productos
+- [ ] Crear "Sinfonías Olfativas" (sets por emoción)
+- [ ] Lanzamiento público + primer drop "Opus 1"
+
+### Semana 4: Optimizar
+- [ ] Medir conversión web → WhatsApp
+- [ ] Favicon + OG images
+- [ ] Vercel Analytics
+- [ ] Planear Phase 2
+
+---
+
+## 4. Fases Futuras
+
+### Phase 2 — La Inteligencia (Meses 1-3)
+- Quiz "El Compositor" (7 preguntas emocionales + UI inmersiva)
+- "Componer tu Sinfonía" (sistema de layering musical)
+- Tarjetas de Colección 1ml con QR
+- WhatsApp AI Concierge
+- Sanity.io CMS para Elizabeth
+- "El Salón" comunidad con voting de Opus
+
+### Phase 3 — Dominación (Meses 3-12)
+- "El Compositor Biológico" (genómica + microbioma + IA → perfume personalizado)
+- NFC en botellas (autenticidad + contenido exclusivo)
+- Terroir Colombiano (ingredientes locales únicos)
+- Subscription "Abono de Temporada"
+- Three.js 3D, ambient sound, AR viewer
+
+### Phase 4+ — Escala (12+ meses)
+- Ver `docs/VISION.md` y `docs/THE_ONYX_PROTOCOL.md`
+
+---
+
+## 5. Costos Mensuales
+
+| Servicio | Costo |
+|----------|-------|
+| Vercel (hobby) | $0 |
+| OpenRouter (pipeline texto) | ~$1 |
+| fal.ai (pipeline video) | ~$5-25 |
+| Dominio fureliza.com | ~$1 |
 | Fragella API (opcional) | $12 |
-| **Total sin Fragella** | **~$7-27/mes** |
-| **Total con Fragella** | **~$19-39/mes** |
+| **Total** | **~$7-39/mes** |
 
 ---
 
-## 4. Prioridades Inmediatas (Top 5)
-
-1. **Crear cuenta fal.ai** — Registrarse, obtener FAL_KEY, agregar a `.env`
-2. **Fotografiar 5-10 frascos** — Elizabeth con celular, fondo oscuro
-3. **Correr pipeline** — `npm run pipeline "Layton" "Parfums de Marly" foto.jpg`
-4. **Configurar dominio** — Apuntar DNS de fureliza.com a Vercel
-5. **TikTok/Reels** — Usar los AI videos generados como contenido social
-
----
-
-*Documento de estado — v2.1.0 — 4 Abril 2026*
+*Documento de estado — v3.0.0 — 4 Abril 2026*

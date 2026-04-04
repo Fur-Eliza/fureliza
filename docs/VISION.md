@@ -182,41 +182,54 @@ Three.js y WebGL permiten crear visualizaciones 3D interactivas directamente en 
 
 ## 5. Cómo Lograrlo: La Ruta Técnica
 
-### Fase 1 — Perfeccionar la Base (Actual → 1 mes)
-- Completar el catálogo de productos (mínimo 8-12 fragancias)
-- Fotografía profesional de cada frasco + frames de animación
-- SEO técnico completo (JSON-LD, sitemaps, canonical URLs — ya implementado)
-- Performance: Lighthouse 95+ en todas las métricas
-- Integrar Sanity.io como CMS para que Elizabeth gestione catálogo sin código
+### Fase 0 — La Base Técnica ✅ COMPLETADA (Marzo 2026)
+- 11 páginas Next.js 16 con TypeScript strict
+- GSAP animations (ScrollTrigger, ScrollSmoother, SplitText)
+- Zustand cart + WhatsApp checkout
+- SEO (JSON-LD, sitemap, canonical URLs), Seguridad (CSP, XSS prevention), Accesibilidad
+- El Compositor pipeline (OpenRouter + fal.ai + FFmpeg)
+- Code review (39 issues corregidos) + pre-deploy audit (19 fixes)
+- Deploy a Vercel (fureliza.vercel.app)
+
+### Fase 1 — Launch MVP (Abril 2026 → 1 mes)
+- Catálogo de 10 fragancias (2 existentes + 8 nuevas investigadas con análisis de margen)
+- Videos con Gemini (temporal) → fal.ai (automatizado cuando se recargue)
+- Red de distribución hub & spoke (network global de contactos)
+- DNS fureliza.com → Vercel
+- Drops "Opus" (branding de ediciones limitadas)
+- Comunidad "El Salón" en WhatsApp
+- TikTok/Reels con AI videos como contenido
 
 ### Fase 2 — La Inteligencia (1-3 meses)
-- Implementar el Quiz "El Compositor" con UI inmersiva
-- Configurar Qdrant + embeddings para recomendación semántica
-- Lanzar el Mayordomo Digital en WhatsApp (MVP con RAG básico)
-- Automatizar flujo de pedidos (WhatsApp → Supabase → notificación)
+- Quiz "El Compositor" — 7 preguntas emocionales + UI inmersiva
+- "Componer tu Sinfonía" — Sistema de layering como composición musical
+- Tarjetas de Colección 1ml con QR → experiencia digital AR
+- Sanity.io CMS para que Elizabeth gestione sin código
+- WhatsApp AI Concierge (RAG + WhatsApp Business API)
+- Qdrant + embeddings para recomendación semántica
 
-### Fase 3 — La Magia Visual (3-6 meses)
-- Migrar de canvas 2D a Three.js para frascos 3D interactivos
-- Implementar partículas de notas olfativas con shaders
-- View Transitions API para navegación cinematográfica entre páginas
-- Ambient sound design por familia olfativa
+### Fase 3 — Dominación del Mercado (3-12 meses)
+- **"El Compositor Biológico"** — Test de saliva (genes OR) + microbioma de piel + IA → perfume personalizado. Nadie combina genómica + microbioma + IA en perfumería.
+- **Terroir Colombiano** — Ingredientes locales únicos (tagua, flor de café, orquídea Cattleya, cacao del Catatumbo). Colombia = 2do país más biodiverso. Moat imposible de copiar.
+- NFC en botellas (autenticidad + contenido exclusivo)
+- Three.js 3D frascos interactivos + partículas de notas
+- Ambient sound por familia olfativa
 - AR "Pruébalo en tu espacio" con WebXR
+- Subscription "Abono de Temporada"
 
-### Fase 4 — El Ecosistema Completo (6-12 meses)
+### Fase 4 — El Ecosistema Completo (12+ meses)
 - Migración a Nx Monorepo (The Onyx Protocol)
 - Microservicios: Catalog (Rust), Orders (Go), AI (Python)
 - Protobuf + gRPC (Connect) para type safety end-to-end
-- NFC/QR phygital con blockchain de autenticidad
-- "El Salón" — comunidad privada de collectors
+- QR de autenticidad con blockchain
 - Expansión de catálogo a 30+ fragancias
-- Programa de suscripción mensual de descubrimiento
 
-### Fase 5 — Escala Regional (12+ meses)
+### Fase 5 — Escala Regional (18+ meses)
 - Expansión a México, Chile, Perú
 - Multi-idioma (español/inglés/portugués)
 - Partnerships con hoteles boutique y restaurantes de lujo
-- Pop-ups sensoriales físicos (experiencias de marca IRL)
-- App móvil nativa con todas las funcionalidades
+- Pop-ups sensoriales físicos
+- App móvil nativa
 
 ---
 
@@ -278,5 +291,6 @@ Si la respuesta es no, no lo enviamos.
 
 ---
 
-*Documento de visión — v1.0.0 — Marzo 2026*
+*Documento de visión — v2.0.0 — Abril 2026*
+*Actualizado con roadmap refinado, catálogo investigado, e ideas de innovación (El Compositor Biológico, Terroir Colombiano, Sinfonía de Layering).*
 *Basado en análisis de marca, investigación de mercado y benchmarking de mejores experiencias digitales de lujo a nivel mundial.*
