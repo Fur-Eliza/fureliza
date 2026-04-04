@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "command": "cd /home/jegx/jegx/desktop/work/org/fureliza && npx tsc --noEmit 2>&1 | tail -5"
+      }
+    ]
+  }
+}
