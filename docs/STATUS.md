@@ -78,9 +78,12 @@
 | Acción | Estado |
 |---|---|
 | `tsc --noEmit` — 0 errores | Pasando |
-| `next build` — 11/11 páginas | Pasando |
+| `next build` — 11/11 páginas + not-found | Pasando |
 | Code review (39 issues corregidos) | Completado |
+| Pre-deploy audit (3 agentes, 19 fixes) | Completado |
 | Repo público en GitHub | Hecho |
+| Deploy a Vercel (fureliza.vercel.app) | Hecho |
+| Claude Code setup (.claude/ rules, commands, hooks) | Hecho |
 
 ---
 
@@ -95,8 +98,8 @@
 | **Contenido real de productos** — Agregar 6-10 fragancias al catálogo | Baja (automatizado) | Elizabeth decide cuáles. Pipeline genera todo. |
 | **Fotos de productos** — Al menos 1 foto por frasco para el AI video | Media | Elizabeth fotografía frascos con celular |
 | **Crear cuenta fal.ai** — Para generar videos AI del pipeline | Baja | Registrarse en fal.ai, obtener FAL_KEY |
-| **Deploy a Vercel** — Conectar repo, configurar dominio fureliza.com | Baja | Acceso DNS del dominio |
-| **Variables de entorno en producción** — WhatsApp number, etc. | Baja | Deploy configurado |
+| ~~**Deploy a Vercel**~~ | ~~Hecho~~ | Deployado en fureliza.vercel.app |
+| ~~**Variables de entorno en producción**~~ | ~~Hecho~~ | WHATSAPP_NUMBER configurado |
 
 #### Importante (mejora experiencia)
 
@@ -138,12 +141,12 @@
 
 ## 4. Prioridades Inmediatas (Top 5)
 
-1. **Crear cuenta fal.ai** — Para completar el pipeline de video
+1. **Crear cuenta fal.ai** — Registrarse, obtener FAL_KEY, agregar a `.env`
 2. **Fotografiar 5-10 frascos** — Elizabeth con celular, fondo oscuro
 3. **Correr pipeline** — `npm run pipeline "Layton" "Parfums de Marly" foto.jpg`
-4. **Deploy a Vercel** — Hacer la web accesible al público
+4. **Configurar dominio** — Apuntar DNS de fureliza.com a Vercel
 5. **TikTok/Reels** — Usar los AI videos generados como contenido social
 
 ---
 
-*Documento de estado — v2.0.0 — 2 Abril 2026*
+*Documento de estado — v2.1.0 — 4 Abril 2026*

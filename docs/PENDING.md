@@ -28,14 +28,12 @@
 - **Configurar**: Agregar `FAL_KEY=...` en `.env`
 - **Costo**: ~$0.07/segundo (Kling Turbo). Un video de 5s = ~$0.35
 
-### 4. Deploy a Vercel
-- **Qué falta**: Conectar el repositorio Git a Vercel y apuntar el dominio.
+### 4. Configurar Dominio fureliza.com
+- **Qué falta**: Apuntar DNS del dominio a Vercel (el deploy ya está hecho en fureliza.vercel.app)
 - **Pasos**:
-  1. Ir a vercel.com → Import Git Repository (Fur-Eliza/fureliza)
-  2. Root directory: `/` (no `/fureliza`)
-  3. Environment variable: `NEXT_PUBLIC_WHATSAPP_NUMBER=573004228021`
-  4. Apuntar DNS de fureliza.com a Vercel
-- **Costo**: $0 (Hobby tier)
+  1. En el registrador del dominio, agregar: A record `@` → `76.76.21.21`
+  2. CNAME `www` → `cname.vercel-dns.com`
+  3. O desde Vercel Dashboard → Settings → Domains → Add `fureliza.com`
 
 ### 5. Grain SVG
 - **Qué falta**: El archivo `public/grain.svg` referenciado en `globals.css` (overlay de textura).
